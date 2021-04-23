@@ -1,9 +1,10 @@
-.dragon {
-  background-color: orange;
+h1 {
+  font-size: 45px;
 }
 
-.grass {
-  background-color: green;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .tile {
@@ -13,4 +14,31 @@
   flex-direction: column;
   margin: 15px;
   border-radius: 10px;
+  text-transform: capitalize;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.selected {
+  background-color: white;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  text-transform: capitalize;
+  align-items: center;
+}
+
+.sprite {
+  width: 200px;
+}
+
+#flavor-text {
+  text-transform: none;
 }

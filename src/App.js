@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import "./Reset.css";
+import "./PokeBackgroundColors.css";
 import Pokemon from "./components/Pokemon";
 import AllPokemon from "./components/AllPokemon";
+import SelectedPokemon from "./components/SelectedPokemon";
 
-function App() {
+const HomePage = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchText, setSearch] = useState("");
   const [allPokemon, setAllPokemon] = useState();
@@ -31,12 +34,11 @@ function App() {
   };
 
   useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon?limit=5").then((response) => {
+    axios.get("https://pokeapi.co/api/v2/pokemon?limit=10").then((response) => {
       setAllPokemon({ ...response.data });
       console.log(allPokemon);
     });
   }, []);
-
   return (
     <div className="App">
       <header>
@@ -61,9 +63,25 @@ function App() {
       <p>
         Data pulled from PokeAPI:{" "}
         <a href="https://pokeapi.co/">https://pokeapi.co/</a>
-      </p>
+      </p>{" "}
       {allPokemon && <AllPokemon allPokemon={allPokemon} />}
     </div>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/:name">
+          <SelectedPokemon />
+        </Route>
+        <Route path="/">
+          {" "}
+          <HomePage />{" "}
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
