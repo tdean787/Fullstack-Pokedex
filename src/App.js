@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
+import "./Reset.css";
 import Pokemon from "./components/Pokemon";
 import AllPokemon from "./components/AllPokemon";
 
@@ -8,6 +9,7 @@ function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchText, setSearch] = useState("");
   const [allPokemon, setAllPokemon] = useState();
+  const [apiError, setError] = useState("");
 
   const callPokeAPI = (event) => {
     event.preventDefault();
@@ -15,12 +17,14 @@ function App() {
       .get(`https://pokeapi.co/api/v2/pokemon/${searchText}/`)
       .then((response) => {
         setPokemonData(response.data);
+        setError(undefined);
       })
       .then(console.log(pokemonData))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setError(error);
+        console.log(apiError);
+      });
   };
-
-  let renderPokemon;
 
   const updateSearch = (event) => {
     setSearch(event.target.value);
@@ -33,14 +37,6 @@ function App() {
     });
   }, []);
 
-  if (allPokemon) {
-    renderPokemon = allPokemon.results.map((element, index) => (
-      <div>
-        {element.name}
-        {element.url}
-      </div>
-    ));
-  }
   return (
     <div className="App">
       <header>
@@ -59,7 +55,7 @@ function App() {
       </div>
       <div>
         <div>
-          <Pokemon pokemonData={pokemonData} />
+          <Pokemon apiError={apiError} pokemonData={pokemonData} />
         </div>
       </div>
       <p>

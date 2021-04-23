@@ -1,19 +1,24 @@
-import axios from "axios";
-import { useState } from "react";
 import React from "react";
 
-const Pokemon = ({ pokemonData }) => {
-  if (pokemonData.length === 0) {
+const Pokemon = (props) => {
+  let backgroundColor = props.pokemonData.types[0].type.name;
+  if (props.apiError) {
+    console.log(props.apiError);
+    return <p> No PokeMon found with that name </p>;
+  } else if (props.pokemonData.length === 0) {
     return <p>Search for a PokeMon!</p>;
   } else {
     return (
-      <div>
-        <p>{pokemonData.name}</p>
-        <img src={pokemonData.sprites.front_default}></img>
+      <div className={backgroundColor}>
+        <h3>{props.pokemonData.name}</h3>
+        <img
+          alt={`${props.pokemonData.name} sprite`}
+          src={props.pokemonData.sprites.front_default}
+        ></img>
 
         <h3>Types </h3>
-        {pokemonData.types.map((element) => (
-          <li>{element.type.name}</li>
+        {props.pokemonData.types.map((element) => (
+          <li key={element.id}>{element.type.name}</li>
         ))}
       </div>
     );

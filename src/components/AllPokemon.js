@@ -1,15 +1,14 @@
-import axios from "axios";
 import React from "react";
 import ListPokemon from "../components/ListPokemon";
 
 const AllPokemon = (props) => {
-  const getPokeData = (pokemon) => {
-    axios
-      .get("https://pokeapi.co/api/v2/pokemon/" + pokemon)
-      .then((response) => {
-        console.log(response.data);
-      });
-  };
+  //   const getPokeData = (pokemon) => {
+  //     axios
+  //       .get("https://pokeapi.co/api/v2/pokemon/" + pokemon)
+  //       .then((response) => {
+  //         console.log(response.data);
+  //       });
+  //   };
 
   return (
     <div>
