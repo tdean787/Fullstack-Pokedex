@@ -2,10 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Pokemon from "./components/Pokemon";
+import AllPokemon from "./components/AllPokemon";
 
 function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchText, setSearch] = useState("");
+  const [allPokemon, setAllPokemon] = useState([]);
 
   const callPokeAPI = (event) => {
     event.preventDefault();
@@ -21,6 +23,15 @@ function App() {
   const updateSearch = (event) => {
     setSearch(event.target.value);
   };
+
+  useEffect(() => {
+    axios
+      .get("https://pokeapi.co/api/v2/pokemon?limit=151")
+      .then((response) => {
+        console.log(response);
+        setAllPokemon({ ...response.data });
+      });
+  }, []);
 
   return (
     <div className="App">
@@ -47,6 +58,7 @@ function App() {
         Data pulled from PokeAPI:{" "}
         <a href="https://pokeapi.co/">https://pokeapi.co/</a>
       </p>
+      <AllPokemon allPokemon={allPokemon} />
     </div>
   );
 }
