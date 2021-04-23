@@ -4,8 +4,6 @@ import React, { useEffect, useState } from "react";
 const ListPokemon = ({ individualPokemon }) => {
   const [pokeData, setPokemonData] = useState();
 
-  let pokemonClass = "tile " + pokeData.types[0].type.name;
-
   useEffect(() => {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${individualPokemon}/`)
@@ -16,6 +14,7 @@ const ListPokemon = ({ individualPokemon }) => {
   }, [individualPokemon]);
 
   if (pokeData) {
+    let pokemonClass = "tile " + pokeData.types[0].type.name;
     return (
       <div className={pokemonClass}>
         <h3> {pokeData.name} </h3>
