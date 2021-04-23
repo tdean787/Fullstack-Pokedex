@@ -7,7 +7,7 @@ import AllPokemon from "./components/AllPokemon";
 function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchText, setSearch] = useState("");
-  const [allPokemon, setAllPokemon] = useState([]);
+  const [allPokemon, setAllPokemon] = useState();
 
   const callPokeAPI = (event) => {
     event.preventDefault();
@@ -20,19 +20,27 @@ function App() {
       .catch((error) => console.log(error));
   };
 
+  let renderPokemon;
+
   const updateSearch = (event) => {
     setSearch(event.target.value);
   };
 
   useEffect(() => {
-    axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=151")
-      .then((response) => {
-        console.log(response);
-        setAllPokemon({ ...response.data });
-      });
+    axios.get("https://pokeapi.co/api/v2/pokemon?limit=5").then((response) => {
+      setAllPokemon({ ...response.data });
+      console.log(allPokemon);
+    });
   }, []);
 
+  if (allPokemon) {
+    renderPokemon = allPokemon.results.map((element, index) => (
+      <div>
+        {element.name}
+        {element.url}
+      </div>
+    ));
+  }
   return (
     <div className="App">
       <header>
@@ -58,7 +66,7 @@ function App() {
         Data pulled from PokeAPI:{" "}
         <a href="https://pokeapi.co/">https://pokeapi.co/</a>
       </p>
-      <AllPokemon allPokemon={allPokemon} />
+      {allPokemon && <AllPokemon allPokemon={allPokemon} />}
     </div>
   );
 }
