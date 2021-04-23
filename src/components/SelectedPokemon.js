@@ -1,13 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useHistory,
-} from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 const SelectedPokemon = () => {
   let { name } = useParams();
@@ -26,7 +19,7 @@ const SelectedPokemon = () => {
     axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`).then((response) => {
       setPokeData(response.data);
     });
-  }, []);
+  }, [name]);
 
   useEffect(() => {
     axios
@@ -34,7 +27,7 @@ const SelectedPokemon = () => {
       .then((response) => {
         setPokeFlavor(response.data.flavor_text_entries[0].flavor_text);
       });
-  }, []);
+  }, [name]);
 
   if (pokeData) {
     return (

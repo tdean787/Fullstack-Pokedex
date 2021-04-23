@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import "./Reset.css";
 import "./PokeBackgroundColors.css";
@@ -36,7 +36,6 @@ const HomePage = () => {
   useEffect(() => {
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=10").then((response) => {
       setAllPokemon({ ...response.data });
-      console.log(allPokemon);
     });
   }, []);
   return (

@@ -1,7 +1,5 @@
 import React from "react";
 import ListPokemon from "../components/ListPokemon";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import SelectedPokemon from "../components/SelectedPokemon";
 
 const AllPokemon = (props) => {
   //   const getPokeData = (pokemon) => {

@@ -1,14 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
-import SelectedPokemon from "../components/SelectedPokemon";
+import { Link } from "react-router-dom";
+// import SelectedPokemon from "../components/SelectedPokemon";
 
 const ListPokemon = ({ individualPokemon }) => {
   const [pokeData, setPokemonData] = useState();
@@ -17,7 +10,6 @@ const ListPokemon = ({ individualPokemon }) => {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${individualPokemon}/`)
       .then((response) => {
-        console.log(response.data);
         setPokemonData(response.data);
       });
   }, [individualPokemon]);
