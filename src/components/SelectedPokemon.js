@@ -6,6 +6,7 @@ import {
   Route,
   Link,
   useParams,
+  useHistory,
 } from "react-router-dom";
 
 const SelectedPokemon = () => {
@@ -13,6 +14,13 @@ const SelectedPokemon = () => {
 
   const [pokeData, setPokeData] = useState();
   const [pokeFlavor, setPokeFlavor] = useState();
+  const [showStats, toggleStats] = useState(false);
+
+  let history = useHistory();
+
+  function handleClick() {
+    history.push("/");
+  }
 
   useEffect(() => {
     axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`).then((response) => {
@@ -31,29 +39,36 @@ const SelectedPokemon = () => {
   if (pokeData) {
     return (
       <div className="selected">
-        <h1> {pokeData.name} </h1>
+        <button onClick={handleClick}>Back</button>
+        <h2> {pokeData.name} </h2>
         <p id="flavor-text">{pokeFlavor}</p>
         <img
           className="sprite"
           alt={`${pokeData.name} sprite`}
           src={pokeData.sprites.front_default}
         ></img>
+
+        <div className="pokeStats">
+          <button onClick={() => toggleStats(!showStats)}>
+            {showStats === true ? <p>Hide Stats</p> : <p>Show Stats</p>}
+          </button>
+          {showStats === true && (
+            <div>
+              {pokeData.stats.map((item) => (
+                <li>
+                  {" "}
+                  {item.stat.name} {item.base_stat}
+                </li>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     );
   } else {
     return <p> loading </p>;
   }
 };
-
-// return (
-//   <div className="selected">
-//     <div>
-//       <p>the link result</p>
-//       <h3> {props.pokeData.name} </h3>
-//       <img
-//         alt={`${props.pokeData.name} sprite`}
-//         src={props.pokeData.sprites.front_default}
-//       ></img>
 
 //       <h4> Abilities </h4>
 //       {props.pokeData.abilities.map((element) => (

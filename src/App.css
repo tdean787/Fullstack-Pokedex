@@ -25,8 +25,6 @@ a {
 .selected {
   background-color: white;
   z-index: 99;
-  width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,6 +35,10 @@ a {
 
 .sprite {
   width: 200px;
+}
+
+.pokeStats {
+  text-align: left;
 }
 
 #flavor-text {
