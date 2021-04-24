@@ -15,6 +15,7 @@ a {
   margin: 15px;
   border-radius: 10px;
   text-transform: capitalize;
+  border: 1px solid black;
 }
 
 .grid {
@@ -43,4 +44,9 @@ a {
 
 #flavor-text {
   text-transform: none;
+}
+
+.all-pokemon-container {
+  margin: 0 auto;
+  max-width: 909px;
 }

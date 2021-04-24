@@ -13,3 +13,53 @@
 .water {
   background-color: #5a8bcd;
 }
+
+.electric {
+  background-color: yellow;
+}
+
+.poison {
+  background-color: #7b62ac;
+}
+
+.fairy {
+  background-color: #ffaca4;
+}
+
+.ground {
+  background-color: #ad6153;
+}
+
+.ghost {
+  background-color: #392939;
+  color: white;
+}
+
+.bug {
+  background-color: #f3e88d;
+}
+
+.flying {
+  background-color: #9ec5e8;
+}
+
+.fighting {
+  background-color: #b75f42;
+}
+
+.normal {
+  background-color: beige;
+}
+
+.rock {
+  background-color: #58473e;
+  color: white;
+}
+
+.psychic {
+  background-color: rgb(192, 47, 192);
+}
+
+.ice {
+  background-color: rgb(53, 241, 241);
+}

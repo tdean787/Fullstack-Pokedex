@@ -34,7 +34,8 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon?limit=10").then((response) => {
+    axios.get("https://pokeapi.co/api/v2/pokemon?limit=9").then((response) => {
+      console.log(response);
       setAllPokemon({ ...response.data });
     });
   }, []);
@@ -63,7 +64,9 @@ const HomePage = () => {
         Data pulled from PokeAPI:{" "}
         <a href="https://pokeapi.co/">https://pokeapi.co/</a>
       </p>{" "}
-      {allPokemon && <AllPokemon allPokemon={allPokemon} />}
+      <div className="all-pokemon-container">
+        {allPokemon && <AllPokemon allPokemon={allPokemon} />}
+      </div>
     </div>
   );
 };
