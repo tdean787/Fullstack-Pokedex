@@ -15,7 +15,7 @@ Implement the data/display for pokemon that the selected evolves to. Complicatio
  
  ~~Implement routing functionality. Click a displayed pokemon/result and go into a more detailed page/component~~
 
-The project is currently hosted on Netlify until no longer suitable.
+The project is currently hosted on Netlify
 
 [React PokeDex](https://cool-react-pokedex.netlify.app/)
 
