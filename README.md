@@ -3,17 +3,17 @@
 This is a work in progress project intended to build familiarity with React and it's various features.
 
 #### Some TODOS:
-~~Implement routing functionality. Click a displayed pokemon/result and go into a more detailed page/component ~~
+
 
 Add different database features e.g. favoriting pokemon, creating a team 
+ 
+Style app further
+
+Implement the data/display for pokemon that the selected evolves to. Complications with API endpoint and resulting data in the evolution chain 
 
  ~~Add a filter search method based on stats, type, etc.~~
  
- 
-Add more styling 
-
-Implement the data for pokemon that the selected evolves to. Complications with API endpoint and resulting data in the evolution chain 
-
+ ~~Implement routing functionality. Click a displayed pokemon/result and go into a more detailed page/component~~
 
 The project is currently hosted on Netlify until no longer suitable.
 
