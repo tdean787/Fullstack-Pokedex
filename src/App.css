@@ -20,11 +20,10 @@ a {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
 }
 
 .selected {
-  background-color: white;
   z-index: 99;
   display: flex;
   flex-direction: column;
@@ -32,12 +31,21 @@ a {
   text-align: center;
   text-transform: capitalize;
   align-items: center;
+  height: 100vh;
 }
 
 .sprite {
   width: 200px;
 }
 
+.evoSprites {
+  display: flex;
+  align-items: center;
+}
+
+.evolves-from-sprite {
+  width: 150px;
+}
 .pokeStats {
   text-align: left;
 }
@@ -48,7 +56,7 @@ a {
 
 .all-pokemon-container {
   margin: 0 auto;
-  max-width: 909px;
+  max-width: 1095px;
 }
 
 .dark {

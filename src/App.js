@@ -105,6 +105,7 @@ const HomePage = () => {
 function App() {
   const [themeState, setThemeState] = useState("light");
 
+  //ternary operator check on display mode - toggles theme state
   const toggleTheme = () => {
     return themeState === "light"
       ? setThemeState("dark")
@@ -113,7 +114,10 @@ function App() {
 
   return (
     <div className={themeState}>
-      <button onClick={toggleTheme}>Toggle dark/light mode </button>
+      <button onClick={toggleTheme}>
+        {" "}
+        Toggle {themeState === "light" ? "dark" : "light"}{" "}
+      </button>
       <Router>
         <Switch>
           <Route path="/:name">

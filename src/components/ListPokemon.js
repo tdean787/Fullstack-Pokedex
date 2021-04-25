@@ -19,7 +19,6 @@ const ListPokemon = ({ individualPokemon }) => {
     return (
       <Link to={`/${pokeData.name}`}>
         <div className={pokemonClass}>
-          name
           <h3> {pokeData.name} </h3>
           <img
             alt={`${pokeData.name} sprite`}
@@ -34,10 +33,6 @@ const ListPokemon = ({ individualPokemon }) => {
           {pokeData.types.map((element) => (
             <li>{element.type.name}</li>
           ))}
-          <p> Height: {pokeData.height} </p>
-          <div>
-            {/* <Route path="/:name" children={<SelectedPokemon />}></Route> */}
-          </div>
         </div>
       </Link>
     );

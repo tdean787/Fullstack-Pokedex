@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const TypeFilteredPokemon = ({ pokemonName }) => {
   const [pokeData, setPokeData] = useState();
@@ -12,17 +13,19 @@ const TypeFilteredPokemon = ({ pokemonName }) => {
 
   if (pokeData) {
     return (
-      <div className={`tile ${pokeData.types[0].type.name}`}>
-        <h3>{pokeData.name}</h3>
-        <img
-          alt={`${pokeData.name} sprite`}
-          src={pokeData.sprites.front_default}
-        ></img>
-        <h4> Abilities </h4>
-        {pokeData.abilities.map((element) => (
-          <li> {element.ability.name} </li>
-        ))}
-      </div>
+      <Link to={`/${pokeData.name}`}>
+        <div className={`tile ${pokeData.types[0].type.name}`}>
+          <h3>{pokeData.name}</h3>
+          <img
+            alt={`${pokeData.name} sprite`}
+            src={pokeData.sprites.front_default}
+          ></img>
+          <h4> Abilities </h4>
+          {pokeData.abilities.map((element) => (
+            <li> {element.ability.name} </li>
+          ))}
+        </div>
+      </Link>
     );
   } else {
     return <p> loading </p>;
