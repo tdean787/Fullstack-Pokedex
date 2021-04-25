@@ -7,12 +7,17 @@ import "./PokeBackgroundColors.css";
 import Pokemon from "./components/Pokemon";
 import AllPokemon from "./components/AllPokemon";
 import SelectedPokemon from "./components/SelectedPokemon";
+import Filtered from "./components/Filtered";
 
 const HomePage = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchText, setSearch] = useState("");
   const [allPokemon, setAllPokemon] = useState();
   const [apiError, setError] = useState("");
+
+  const [selectedType, setSelectedType] = useState("all");
+
+  const [typeFilteredPokemon, setTypeFilteredPokemon] = useState("");
 
   const callPokeAPI = (event) => {
     event.preventDefault();
@@ -35,10 +40,23 @@ const HomePage = () => {
 
   useEffect(() => {
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=9").then((response) => {
-      console.log(response);
+      console.log(response.data);
+      console.log(response.data.results);
       setAllPokemon({ ...response.data });
     });
   }, []);
+
+  const typeChange = (event) => {
+    setSelectedType(event.target.value);
+    if (event.target.value !== "all") {
+      axios
+        .get(`https://pokeapi.co/api/v2/type/${event.target.value}/`)
+        .then((response) => {
+          setTypeFilteredPokemon(response.data.pokemon);
+        });
+    }
+  };
+
   return (
     <div className="App">
       <header>
@@ -53,6 +71,14 @@ const HomePage = () => {
           <button type="submit" onClick={callPokeAPI}>
             search for pokemon
           </button>
+          <label for="types"> Filter by type </label>
+          <select onChange={typeChange} name="types">
+            <option value="all">All</option>
+            <option value="fire">Fire</option>
+            <option value="grass">grass</option>
+            <option value="water">water</option>
+            <option value="rock">rock</option>
+          </select>
         </form>
       </div>
       <div>
@@ -65,25 +91,41 @@ const HomePage = () => {
         <a href="https://pokeapi.co/">https://pokeapi.co/</a>
       </p>{" "}
       <div className="all-pokemon-container">
-        {allPokemon && <AllPokemon allPokemon={allPokemon} />}
+        {selectedType !== "all" && (
+          <Filtered selectedType={selectedType} data={typeFilteredPokemon} />
+        )}
+        {selectedType === "all" && (
+          <div>{allPokemon && <AllPokemon allPokemon={allPokemon} />}</div>
+        )}
       </div>
     </div>
   );
 };
 
 function App() {
+  const [themeState, setThemeState] = useState("light");
+
+  const toggleTheme = () => {
+    return themeState === "light"
+      ? setThemeState("dark")
+      : setThemeState("light");
+  };
+
   return (
-    <Router>
-      <Switch>
-        <Route path="/:name">
-          <SelectedPokemon />
-        </Route>
-        <Route path="/">
-          {" "}
-          <HomePage />{" "}
-        </Route>
-      </Switch>
-    </Router>
+    <div className={themeState}>
+      <button onClick={toggleTheme}>Toggle dark/light mode </button>
+      <Router>
+        <Switch>
+          <Route path="/:name">
+            <SelectedPokemon />
+          </Route>
+          <Route path="/">
+            {" "}
+            <HomePage />{" "}
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

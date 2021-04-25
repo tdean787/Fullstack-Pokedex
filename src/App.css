@@ -50,3 +50,13 @@ a {
   margin: 0 auto;
   max-width: 909px;
 }
+
+.dark {
+  background-color: #455363;
+  color: white;
+}
+
+.light {
+  background-color: white;
+  color: black;
+}
