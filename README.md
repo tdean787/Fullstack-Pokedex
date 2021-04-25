@@ -3,14 +3,17 @@
 This is a work in progress project intended to build familiarity with React and it's various features.
 
 #### Some TODOS:
+~~Implement routing functionality. Click a displayed pokemon/result and go into a more detailed page/component ~~
 
-<ol>
-<li> ~~Implement routing functionality. Click a displayed pokemon/result and go into a more detailed page/component.~~ DONE </li>
-<li> Add different database features e.g. favoriting pokemon, creating a team </li>
-<li> ~~Add a filter search method based on stats, type, etc.~~ Filter by type completed</li>
-<li> Add more styling </li>
-<li> Implement the data for pokemon that the selected evolves to. Complications with API endpoint and resulting data in the evolution chain </li>
-</ol>
+Add different database features e.g. favoriting pokemon, creating a team 
+
+ ~~Add a filter search method based on stats, type, etc.~~
+ 
+ 
+Add more styling 
+
+Implement the data for pokemon that the selected evolves to. Complications with API endpoint and resulting data in the evolution chain 
+
 
 The project is currently hosted on Netlify until no longer suitable.
 
@@ -33,8 +36,3 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
