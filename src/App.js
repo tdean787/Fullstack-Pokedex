@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import "./Reset.css";
 import "./PokeBackgroundColors.css";
@@ -117,15 +117,27 @@ function App() {
         Toggle {themeState === "light" ? "dark" : "light"}{" "}
       </button>
       <Router>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+          </ul>
+        </nav>
         <Switch>
           <Route path="/:name">
             <SelectedPokemon />
           </Route>
           <Route path="/">
-            {" "}
-            <HomePage />{" "}
+            <HomePage />
           </Route>
           <Route component={HomePage}></Route>
+          <Route path="*">
+            <HomePage />
+          </Route>
         </Switch>
       </Router>
     </div>

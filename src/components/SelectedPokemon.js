@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const SelectedPokemon = (props) => {
   let { name } = useParams();
-
   const [pokeData, setPokeData] = useState();
   const [pokeFlavor, setPokeFlavor] = useState();
   const [showStats, toggleStats] = useState(false);
@@ -86,26 +86,41 @@ const SelectedPokemon = (props) => {
         <div className="evoSprites">
           {evolvesFromObj && (
             <div>
-              <img
-                alt={evolvesFromObj.name}
-                src={evolvesFromObj.sprites.front_default}
-              ></img>
-              <p>{evolvesFromObj.name}</p>
+              {evolvesFromObj.name !== pokeData.name && (
+                <Link to={`/${evolvesFromObj.name}`}>
+                  <div>
+                    <img
+                      alt={evolvesFromObj.name}
+                      src={`${evolvesFromObj.sprites.front_default}`}
+                    ></img>
+                    <p>{evolvesFromObj.name}</p>
+                  </div>
+                </Link>
+              )}
             </div>
           )}
-          <img
-            className="sprite"
-            alt={`${pokeData.name} sprite`}
-            src={pokeData.sprites.front_default}
-          ></img>
+
+          <div>
+            <img
+              className="sprite"
+              alt={`${pokeData.name} sprite`}
+              src={pokeData.sprites.front_default}
+            ></img>
+          </div>
 
           {evolvesToObj && (
             <div>
-              <img
-                alt={evolvesToObj.name}
-                src={`${evolvesToObj.sprites.front_default}`}
-              ></img>
-              <p>{evolvesToObj.name}</p>
+              {evolvesToObj.name !== pokeData.name && (
+                <Link to={`/${evolvesToObj.name}`}>
+                  <div>
+                    <img
+                      alt={evolvesToObj.name}
+                      src={`${evolvesToObj.sprites.front_default}`}
+                    ></img>
+                    <p>{evolvesToObj.name}</p>
+                  </div>
+                </Link>
+              )}
             </div>
           )}
         </div>
