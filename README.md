@@ -6,18 +6,26 @@ This is a work in progress project intended to build familiarity with React and 
 
 
 Add different database features e.g. favoriting pokemon, creating a team 
+
+- MongoDB now connected to app. Currently, a user could write in a team name and submit their selected pokemon to that team. the teams and pokemon are each unique objects in the same collection. Teams are not segmented by collection or database.
  
-Style app further
+Style app
 
 Implement the data/display for pokemon that the selected evolves to. Complications with API endpoint and resulting data in the evolution chain 
+
+- evolution chain rendering 95% complete. TODO: add method to handle pokemon with multiple evolution forms e.g. eevee
 
  ~~Add a filter search method based on stats, type, etc.~~
  
  ~~Implement routing functionality. Click a displayed pokemon/result and go into a more detailed page/component~~
 
-The project is currently hosted on Netlify
+~~The project is currently hosted on Netlify~~
 
-[React PokeDex](https://cool-react-pokedex.netlify.app/)
+~~[React PokeDex](https://cool-react-pokedex.netlify.app/)~~
+
+Project is moving to Heroku for hosting, easier integration with newly created backend
+
+https://react-pokedex-tdean787.herokuapp.com/
 
 ### `npm start`
 
