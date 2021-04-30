@@ -66,9 +66,11 @@ const HomePage = () => {
             placeholder="type the pokemon name here"
             onChange={updateSearch}
           />
+
           <button type="submit" onClick={callPokeAPI}>
             search for pokemon
           </button>
+
           <label for="types"> Filter by type </label>
           <select onChange={typeChange} name="types">
             <option value="all">All</option>
@@ -80,9 +82,11 @@ const HomePage = () => {
         </form>
       </div>
       <div>
-        <div>
-          <Pokemon apiError={apiError} pokemonData={pokemonData} />
-        </div>
+        <Link to={pokemonData.name}>
+          <div>
+            <Pokemon apiError={apiError} pokemonData={pokemonData} />
+          </div>
+        </Link>
       </div>
       <p>
         Data pulled from PokeAPI:{" "}

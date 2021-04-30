@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const ListPokemon = ({ individualPokemon }) => {
   const [pokeData, setPokemonData] = useState();
-
   useEffect(() => {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${individualPokemon}/`)
@@ -15,7 +14,7 @@ const ListPokemon = ({ individualPokemon }) => {
   }, [individualPokemon]);
 
   if (pokeData) {
-    let pokemonClass = "tile " + pokeData.types[0].type.name;
+    let pokemonClass = " tile " + pokeData.types[0].type.name;
     return (
       <Link to={`/${pokeData.name}`}>
         <div className={pokemonClass}>

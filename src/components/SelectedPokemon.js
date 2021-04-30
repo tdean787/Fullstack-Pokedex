@@ -10,10 +10,28 @@ const SelectedPokemon = (props) => {
   const [showStats, toggleStats] = useState(false);
   const [evolvesFromObj, setEvolvesFrom] = useState();
   const [evolvesToObj, setEvolvesToObj] = useState();
+  const [teamName, setTeamNameState] = useState();
 
+  const [uniqueTeams, setUniqueTeams] = useState();
   let evoChain = [];
   let history = useHistory();
   let evolutionChainURL;
+
+  const addPokemon = () => {
+    let pokemonObj = {
+      pokemonName: pokeData.name,
+      pokemonTeamName: teamName,
+    };
+    axios
+      .post("/api/pokemon-teams", pokemonObj)
+      .then((response) => console.log(response))
+      .then((res) => setTeamNameState(""))
+      .catch((error) => console.log(error));
+  };
+
+  const setTeamName = (event) => {
+    setTeamNameState(event.target.value);
+  };
 
   function handleClick() {
     history.push("/");
@@ -77,6 +95,25 @@ const SelectedPokemon = (props) => {
       });
   }, [name]);
 
+  useEffect(() => {
+    axios
+      .get("/api/pokemon-teams")
+      .then((response) => console.log(response))
+      .catch((error) => console.log("error", error));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/pokemon-teams")
+      .then((response) => {
+        let mappedTeams = response.data.map(
+          (element) => element.pokemonTeamName
+        );
+        setUniqueTeams([...new Set(mappedTeams)]);
+      })
+      .then((res) => console.log(uniqueTeams));
+  }, []);
+
   if (pokeData) {
     return (
       <div className={`selected`}>
@@ -121,6 +158,26 @@ const SelectedPokemon = (props) => {
                   </div>
                 </Link>
               )}
+            </div>
+          )}
+        </div>
+        <div>
+          <input
+            value={teamName}
+            onChange={setTeamName}
+            placeholder="write team name"
+          />
+          <button onClick={addPokemon}> add to team </button>
+          <p>Teams </p>
+          {uniqueTeams && (
+            <div>
+              {console.log(uniqueTeams)}
+
+              <select>
+                {uniqueTeams.map((pokemon) => (
+                  <option>{pokemon}</option>
+                ))}
+              </select>
             </div>
           )}
         </div>

@@ -18,6 +18,10 @@ a {
   border: 1px solid black;
 }
 
+.tile:hover {
+  filter: brightness(90%);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -32,6 +36,16 @@ a {
   text-transform: capitalize;
   align-items: center;
   height: 100vh;
+}
+
+.searchResult {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 1em auto;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 .sprite {

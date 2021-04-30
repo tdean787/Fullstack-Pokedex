@@ -14,7 +14,7 @@ const TypeFilteredPokemon = ({ pokemonName }) => {
   if (pokeData) {
     return (
       <Link to={`/${pokeData.name}`}>
-        <div className={`tile ${pokeData.types[0].type.name}`}>
+        <div className={`tile ${pokeData.types[0].type.name} hover-dark`}>
           <h3>{pokeData.name}</h3>
           <img
             alt={`${pokeData.name} sprite`}

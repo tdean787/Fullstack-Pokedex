@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Pokemon = (props) => {
   if (props.apiError) {
@@ -9,17 +10,17 @@ const Pokemon = (props) => {
   } else {
     let backgroundColor = props.pokemonData.types[0].type.name;
     return (
-      <div className={backgroundColor}>
+      <div className={backgroundColor + " searchResult tile"}>
         <h3>{props.pokemonData.name}</h3>
         <img
           alt={`${props.pokemonData.name} sprite`}
           src={props.pokemonData.sprites.front_default}
         ></img>
 
-        <h3>Types </h3>
+        {/* <h3>Types </h3>
         {props.pokemonData.types.map((element) => (
           <li key={element.id}>{element.type.name}</li>
-        ))}
+        ))} */}
       </div>
     );
   }
