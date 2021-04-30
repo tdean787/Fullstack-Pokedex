@@ -127,6 +127,7 @@ function App() {
             {" "}
             <HomePage />{" "}
           </Route>
+          <Route component={HomePage}></Route>
         </Switch>
       </Router>
     </div>
