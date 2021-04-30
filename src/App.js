@@ -40,8 +40,6 @@ const HomePage = () => {
 
   useEffect(() => {
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=9").then((response) => {
-      console.log(response.data);
-      console.log(response.data.results);
       setAllPokemon({ ...response.data });
     });
   }, []);

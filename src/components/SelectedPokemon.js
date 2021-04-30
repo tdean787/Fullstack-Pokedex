@@ -9,11 +9,7 @@ const SelectedPokemon = (props) => {
   const [pokeFlavor, setPokeFlavor] = useState();
   const [showStats, toggleStats] = useState(false);
   const [evolvesFromObj, setEvolvesFrom] = useState();
-  const [evolvesFromData, setEvolvesFromData] = useState();
   const [evolvesToObj, setEvolvesToObj] = useState();
-  const [currentPokeIndex, setCurrentIndex] = useState();
-
-  const [evoChainDependency, setChain] = useState([]);
 
   let evoChain = [];
   let history = useHistory();
@@ -36,23 +32,22 @@ const SelectedPokemon = (props) => {
       .get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
       .then((response) => {
         setPokeFlavor(response.data.flavor_text_entries[0].flavor_text);
+        console.log(response.data);
         evolutionChainURL = response.data.evolution_chain.url;
         if (!response.data.evolves_from_species) {
           return;
         } else {
-          console.log(response.data);
           axios
             .get(
               `https://pokeapi.co/api/v2/pokemon/${response.data.evolves_from_species.name}/`
             )
-            .then((res) => setEvolvesToObj(res.data))
+            .then((res) => setEvolvesFrom(res.data))
             .catch((error) => console.log(error));
         }
       })
       .then(() => {
         axios.get(evolutionChainURL).then((response) => {
           let evoData = response.data.chain;
-          let evoDetails = evoData.evolution_details[0];
           do {
             evoChain.push({
               species_name: evoData.species.name,
@@ -66,7 +61,7 @@ const SelectedPokemon = (props) => {
 
           console.log(evoChain);
           let currentIndex = evoChain.findIndex(
-            (element) => element.species_name == name
+            (element) => element.species_name === name
           );
           console.log(currentIndex);
           if (evoChain[currentIndex + 1]) {
@@ -76,7 +71,6 @@ const SelectedPokemon = (props) => {
               .get(`https://pokeapi.co/api/v2/pokemon/${pokeName}/`)
               .then((res) => {
                 setEvolvesToObj(res.data);
-                console.log(res.data);
               });
           }
         });
@@ -90,6 +84,15 @@ const SelectedPokemon = (props) => {
         <h2> {pokeData.name} </h2>
         <p id="flavor-text">{pokeFlavor}</p>
         <div className="evoSprites">
+          {evolvesFromObj && (
+            <div>
+              <img
+                alt={evolvesFromObj.name}
+                src={evolvesFromObj.sprites.front_default}
+              ></img>
+              <p>{evolvesFromObj.name}</p>
+            </div>
+          )}
           <img
             className="sprite"
             alt={`${pokeData.name} sprite`}
@@ -98,7 +101,10 @@ const SelectedPokemon = (props) => {
 
           {evolvesToObj && (
             <div>
-              <img src={`${evolvesToObj.sprites.front_default}`}></img>
+              <img
+                alt={evolvesToObj.name}
+                src={`${evolvesToObj.sprites.front_default}`}
+              ></img>
               <p>{evolvesToObj.name}</p>
             </div>
           )}
