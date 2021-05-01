@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import "./Reset.css";
+import "./spinner.css";
 import "./PokeBackgroundColors.css";
 import Pokemon from "./components/Pokemon";
 import AllPokemon from "./components/AllPokemon";
 import SelectedPokemon from "./components/SelectedPokemon";
 import Filtered from "./components/Filtered";
+import Teams from "./components/Teams";
 
 const HomePage = () => {
   const [pokemonData, setPokemonData] = useState([]);
@@ -39,7 +41,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon?limit=9").then((response) => {
+    axios.get("https://pokeapi.co/api/v2/pokemon?limit=3").then((response) => {
       setAllPokemon({ ...response.data });
     });
   }, []);
@@ -136,6 +138,7 @@ function App() {
             <SelectedPokemon />
           </Route>
           <Route path="/">
+            <Teams />
             <HomePage />
           </Route>
           <Route component={HomePage}></Route>

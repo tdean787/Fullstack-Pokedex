@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Route, Link } from "react-router-dom";
 
 const SelectedPokemon = (props) => {
   let { name } = useParams();
@@ -11,8 +11,8 @@ const SelectedPokemon = (props) => {
   const [evolvesFromObj, setEvolvesFrom] = useState();
   const [evolvesToObj, setEvolvesToObj] = useState();
   const [teamName, setTeamNameState] = useState();
-
   const [uniqueTeams, setUniqueTeams] = useState();
+
   let evoChain = [];
   let history = useHistory();
   let evolutionChainURL;
@@ -24,8 +24,7 @@ const SelectedPokemon = (props) => {
     };
     axios
       .post("/api/pokemon-teams", pokemonObj)
-      .then((response) => console.log(response))
-      .then((res) => setTeamNameState(""))
+      .then(() => setTeamNameState(""))
       .catch((error) => console.log(error));
   };
 
@@ -50,7 +49,6 @@ const SelectedPokemon = (props) => {
       .get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
       .then((response) => {
         setPokeFlavor(response.data.flavor_text_entries[0].flavor_text);
-        console.log(response.data);
         evolutionChainURL = response.data.evolution_chain.url;
         if (!response.data.evolves_from_species) {
           return;
@@ -76,15 +74,11 @@ const SelectedPokemon = (props) => {
 
             evoData = evoData.evolves_to[0];
           } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
-
-          console.log(evoChain);
           let currentIndex = evoChain.findIndex(
             (element) => element.species_name === name
           );
-          console.log(currentIndex);
           if (evoChain[currentIndex + 1]) {
             let pokeName = evoChain[currentIndex + 1].species_name;
-            console.log(pokeName);
             axios
               .get(`https://pokeapi.co/api/v2/pokemon/${pokeName}/`)
               .then((res) => {
@@ -94,13 +88,6 @@ const SelectedPokemon = (props) => {
         });
       });
   }, [name]);
-
-  useEffect(() => {
-    axios
-      .get("/api/pokemon-teams")
-      .then((response) => console.log(response))
-      .catch((error) => console.log("error", error));
-  }, []);
 
   useEffect(() => {
     axios
@@ -171,8 +158,6 @@ const SelectedPokemon = (props) => {
           <p>Teams </p>
           {uniqueTeams && (
             <div>
-              {console.log(uniqueTeams)}
-
               <select>
                 {uniqueTeams.map((pokemon) => (
                   <option>{pokemon}</option>

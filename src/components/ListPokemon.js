@@ -36,7 +36,22 @@ const ListPokemon = ({ individualPokemon }) => {
       </Link>
     );
   } else {
-    return <p>API Loading</p>;
+    return (
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    );
   }
 };
 
