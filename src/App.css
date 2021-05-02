@@ -50,6 +50,7 @@ a {
 
 .sprite {
   width: 200px;
+  height: 200px;
 }
 
 .evoSprites {
@@ -86,4 +87,12 @@ a {
 .teams {
   border: 1px solid black;
   margin-top: 1em;
+}
+
+.info-hidden {
+  display: none;
+}
+
+.info-visible {
+  display: visible;
 }

@@ -46,7 +46,7 @@ const Teams = ({ pokeName }) => {
         setUniqueTeams([...new Set(mappedTeams)]);
       })
       .then((res) => console.log(uniqueTeams));
-  }, []);
+  }, [displayedTeam]);
   return (
     <div className="teams">
       {pokeName && (
@@ -74,13 +74,14 @@ const Teams = ({ pokeName }) => {
       {displayedTeam && (
         <div>
           {displayedTeam.map((element) => (
-            <div>
+            <div key={element.id}>
               <p>
                 {" "}
                 <TeamMember
                   pokemonName={element.pokemonName}
                   pokemonTeamName={element.pokemonTeamName}
                   id={element.id}
+                  key={element.id}
                 />
                 {element.pokemonName} - {element.pokemonTeamName} - {element.id}
               </p>

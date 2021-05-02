@@ -21,7 +21,7 @@ const AllPokemon = (props) => {
       )} */}
       {props.allPokemon &&
         props.allPokemon.results.map((element) => (
-          <div>
+          <div key={element.name}>
             <ListPokemon individualPokemon={element.name} />
           </div>
         ))}

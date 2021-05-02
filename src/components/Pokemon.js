@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Pokemon = (props) => {
   if (props.apiError) {

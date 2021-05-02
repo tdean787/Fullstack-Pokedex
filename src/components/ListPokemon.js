@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 
 const ListPokemon = ({ individualPokemon }) => {
   const [pokeData, setPokemonData] = useState();
+  const [infoClass, setInfoClass] = useState("info-hidden");
+  const toggleInfo = () => {
+    setInfoClass(infoClass === "info-hidden" ? "info-visible" : "info-hidden");
+  };
   useEffect(() => {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${individualPokemon}/`)
@@ -16,13 +20,17 @@ const ListPokemon = ({ individualPokemon }) => {
   if (pokeData) {
     let pokemonClass = " tile " + pokeData.types[0].type.name;
     return (
-      <Link to={`/${pokeData.name}`}>
-        <div className={pokemonClass}>
+      <div className={pokemonClass}>
+        <Link key={pokeData.id} to={`/${pokeData.name}`}>
           <h3> {pokeData.name} </h3>
           <img
             alt={`${pokeData.name} sprite`}
             src={pokeData.sprites.front_default}
           ></img>
+        </Link>
+
+        <button onClick={toggleInfo}>Show Info</button>
+        <div className={infoClass}>
           <h4> Abilities </h4>
           {pokeData.abilities.map((element) => (
             <li> {element.ability.name} </li>
@@ -30,14 +38,14 @@ const ListPokemon = ({ individualPokemon }) => {
           {pokeData.types.length === 1 && <h4> Type </h4>}
           {pokeData.types.length > 1 && <h4> Types </h4>}
           {pokeData.types.map((element) => (
-            <li>{element.type.name}</li>
+            <li key={element.type.name}>{element.type.name}</li>
           ))}
         </div>
-      </Link>
+      </div>
     );
   } else {
     return (
-      <div class="lds-spinner">
+      <div className="lds-spinner">
         <div></div>
         <div></div>
         <div></div>
