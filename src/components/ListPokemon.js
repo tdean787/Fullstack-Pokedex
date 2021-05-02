@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 const ListPokemon = ({ individualPokemon }) => {
   const [pokeData, setPokemonData] = useState();
   const [infoClass, setInfoClass] = useState("info-hidden");
+  const [toggleInfoText, setInfoText] = useState("Show Info");
   const toggleInfo = () => {
     setInfoClass(infoClass === "info-hidden" ? "info-visible" : "info-hidden");
+    setInfoText(toggleInfoText === "Show Info" ? "Hide Info" : "Show Info");
   };
   useEffect(() => {
     axios
@@ -29,7 +31,7 @@ const ListPokemon = ({ individualPokemon }) => {
           ></img>
         </Link>
 
-        <button onClick={toggleInfo}>Show Info</button>
+        <button onClick={toggleInfo}>{toggleInfoText}</button>
         <div className={infoClass}>
           <h4> Abilities </h4>
           {pokeData.abilities.map((element) => (

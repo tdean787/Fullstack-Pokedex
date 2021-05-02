@@ -1,9 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ListPokemon from "./ListPokemon";
 
 const TypeFilteredPokemon = ({ pokemonName }) => {
   const [pokeData, setPokeData] = useState();
+  const [infoClass, setInfoClass] = useState("info-hidden");
+  const [toggleInfoText, setInfoText] = useState("Show Info");
+  const toggleInfo = () => {
+    setInfoClass(infoClass === "info-hidden" ? "info-visible" : "info-hidden");
+    setInfoText(toggleInfoText === "Show Info" ? "Hide Info" : "Show Info");
+  };
 
   useEffect(() => {
     axios
@@ -12,21 +19,7 @@ const TypeFilteredPokemon = ({ pokemonName }) => {
   }, [pokemonName]);
 
   if (pokeData) {
-    return (
-      <Link to={`/${pokeData.name}`}>
-        <div className={`tile ${pokeData.types[0].type.name} hover-dark`}>
-          <h3>{pokeData.name}</h3>
-          <img
-            alt={`${pokeData.name} sprite`}
-            src={pokeData.sprites.front_default}
-          ></img>
-          <h4> Abilities </h4>
-          {pokeData.abilities.map((element) => (
-            <li> {element.ability.name} </li>
-          ))}
-        </div>
-      </Link>
-    );
+    return <ListPokemon individualPokemon={pokemonName} />;
   } else {
     return <p> loading </p>;
   }

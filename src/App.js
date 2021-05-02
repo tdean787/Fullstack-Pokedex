@@ -79,6 +79,10 @@ const HomePage = () => {
             <option value="grass">grass</option>
             <option value="water">water</option>
             <option value="rock">rock</option>
+            <option value="dark">dark</option>
+            <option value="fighting">fighting</option>
+            <option value="ice">ice</option>
+            <option value="psychic">psychic</option>
           </select>
         </form>
       </div>
