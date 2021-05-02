@@ -61,6 +61,7 @@ const Teams = ({ pokeName }) => {
       )}
 
       <h3>Teams </h3>
+      {/* dropdown list of unique teams from database */}
       {uniqueTeams && (
         <div>
           <select onChange={teamChange}>
@@ -71,19 +72,25 @@ const Teams = ({ pokeName }) => {
         </div>
       )}
 
+      {/* rendered display of pokemon matching the selected team name */}
       {displayedTeam && (
         <div>
+          <h3>{displayedTeam[0].pokemonTeamName}</h3>
           {displayedTeam.map((element) => (
             <div key={element.id}>
               <p>
                 {" "}
+                {/* need to pass down displayedTeam state here
+                in order to rerender the displayed pokemon after a 
+                successful delete operation */}
                 <TeamMember
                   pokemonName={element.pokemonName}
                   pokemonTeamName={element.pokemonTeamName}
                   id={element.id}
                   key={element.id}
+                  displayedTeam={displayedTeam}
+                  setDisplayedTeam={setDisplayedTeam}
                 />
-                {element.pokemonName} - {element.pokemonTeamName} - {element.id}
               </p>
             </div>
           ))}

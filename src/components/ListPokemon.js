@@ -21,7 +21,7 @@ const ListPokemon = ({ individualPokemon }) => {
   }, [individualPokemon]);
 
   if (pokeData) {
-    let pokemonClass = " tile " + pokeData.types[0].type.name;
+    let pokemonClass = "shadow-drop-br tile " + pokeData.types[0].type.name;
     return (
       <div className={pokemonClass}>
         <Link key={pokeData.id} to={`/${pokeData.name}`}>
@@ -32,7 +32,9 @@ const ListPokemon = ({ individualPokemon }) => {
           ></img>
         </Link>
 
-        <button onClick={toggleInfo}>{toggleInfoText}</button>
+        <button className="btn" onClick={toggleInfo}>
+          {toggleInfoText}
+        </button>
         <div className={infoClass}>
           <h4> Abilities </h4>
           {pokeData.abilities.map((element) => (
