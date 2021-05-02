@@ -9,10 +9,8 @@ const TeamMember = ({ pokemonName, pokemonTeamName, id }) => {
 
   return (
     <div>
-      <p>individual</p>
-
       {pokeData && (
-        <div>
+        <div className={pokeData.types[0].type.name}>
           <h3>{pokeData.name}</h3>
           <img
             alt={`${pokeData.name} sprite`}

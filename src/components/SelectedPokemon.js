@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { BrowserRouter as Route, Link } from "react-router-dom";
-
+import Teams from "./Teams";
 const SelectedPokemon = (props) => {
   let { name } = useParams();
   const [pokeData, setPokeData] = useState();
@@ -10,27 +10,10 @@ const SelectedPokemon = (props) => {
   const [showStats, toggleStats] = useState(false);
   const [evolvesFromObj, setEvolvesFrom] = useState();
   const [evolvesToObj, setEvolvesToObj] = useState();
-  const [teamName, setTeamNameState] = useState();
-  const [uniqueTeams, setUniqueTeams] = useState();
 
   let evoChain = [];
   let history = useHistory();
   let evolutionChainURL;
-
-  const addPokemon = () => {
-    let pokemonObj = {
-      pokemonName: pokeData.name,
-      pokemonTeamName: teamName,
-    };
-    axios
-      .post("/api/pokemon-teams", pokemonObj)
-      .then(() => setTeamNameState(""))
-      .catch((error) => console.log(error));
-  };
-
-  const setTeamName = (event) => {
-    setTeamNameState(event.target.value);
-  };
 
   function handleClick() {
     history.push("/");
@@ -89,17 +72,17 @@ const SelectedPokemon = (props) => {
       });
   }, [name]);
 
-  useEffect(() => {
-    axios
-      .get("/api/pokemon-teams")
-      .then((response) => {
-        let mappedTeams = response.data.map(
-          (element) => element.pokemonTeamName
-        );
-        setUniqueTeams([...new Set(mappedTeams)]);
-      })
-      .then((res) => console.log(uniqueTeams));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/pokemon-teams")
+  //     .then((response) => {
+  //       let mappedTeams = response.data.map(
+  //         (element) => element.pokemonTeamName
+  //       );
+  //       setUniqueTeams([...new Set(mappedTeams)]);
+  //     })
+  //     .then((res) => console.log(uniqueTeams));
+  // }, []);
 
   if (pokeData) {
     return (
@@ -148,24 +131,6 @@ const SelectedPokemon = (props) => {
             </div>
           )}
         </div>
-        <div>
-          <input
-            value={teamName}
-            onChange={setTeamName}
-            placeholder="write team name"
-          />
-          <button onClick={addPokemon}> add to team </button>
-          <p>Teams </p>
-          {uniqueTeams && (
-            <div>
-              <select>
-                {uniqueTeams.map((pokemon) => (
-                  <option>{pokemon}</option>
-                ))}
-              </select>
-            </div>
-          )}
-        </div>
         <div className="pokeStats">
           <button onClick={() => toggleStats(!showStats)}>
             {showStats === true ? <p>Hide Stats</p> : <p>Show Stats</p>}
@@ -181,6 +146,7 @@ const SelectedPokemon = (props) => {
             </div>
           )}
         </div>
+        <Teams pokeName={name} />
       </div>
     );
   } else {

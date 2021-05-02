@@ -2,11 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import TeamMember from "./TeamMember";
 
-const Teams = () => {
+const Teams = ({ pokeName }) => {
   const [teamName, setTeamNameState] = useState();
   const [uniqueTeams, setUniqueTeams] = useState();
   const [displayedTeam, setDisplayedTeam] = useState();
-  const [selectedTeam, setSelectedTeam] = useState([]);
 
   const setTeamName = (event) => {
     setTeamNameState(event.target.value);
@@ -21,16 +20,21 @@ const Teams = () => {
       })
       .catch((error) => console.log(error));
   };
-  //   const addPokemon = () => {
-  //     let pokemonObj = {
-  //       pokemonName: pokeData.name,
-  //       pokemonTeamName: teamName,
-  //     };
-  //     axios
-  //       .post("/api/pokemon-teams", pokemonObj)
-  //       .then(() => setTeamNameState(""))
-  //       .catch((error) => console.log(error));
-  //   };
+  const addPokemon = () => {
+    if (pokeName) {
+      let pokemonObj = {
+        pokemonName: pokeName,
+        pokemonTeamName: teamName,
+      };
+
+      axios
+        .post("/api/pokemon-teams", pokemonObj)
+        .then(() => setTeamNameState(""))
+        .catch((error) => console.log(error));
+    } else {
+      console.log("error adding");
+    }
+  };
 
   useEffect(() => {
     axios
@@ -44,14 +48,19 @@ const Teams = () => {
       .then((res) => console.log(uniqueTeams));
   }, []);
   return (
-    <div>
-      <input
-        value={teamName}
-        onChange={setTeamName}
-        placeholder="write team name"
-      />
-      {/* <button onClick={addPokemon}> add to team </button> */}
-      <p>Teams </p>
+    <div className="teams">
+      {pokeName && (
+        <div>
+          <input
+            value={teamName}
+            onChange={setTeamName}
+            placeholder="write team name"
+          />
+          <button onClick={addPokemon}> add to team </button>
+        </div>
+      )}
+
+      <h3>Teams </h3>
       {uniqueTeams && (
         <div>
           <select onChange={teamChange}>

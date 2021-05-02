@@ -41,9 +41,11 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon?limit=3").then((response) => {
-      setAllPokemon({ ...response.data });
-    });
+    axios
+      .get("https://pokeapi.co/api/v2/pokemon?limit=151")
+      .then((response) => {
+        setAllPokemon({ ...response.data });
+      });
   }, []);
 
   const typeChange = (event) => {
@@ -131,9 +133,15 @@ function App() {
             <li>
               <Link to="/about">About</Link>
             </li>
+            <li>
+              <Link to="/teams">Teams</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
+          <Route path="/teams">
+            <Teams />
+          </Route>
           <Route path="/:name">
             <SelectedPokemon />
           </Route>

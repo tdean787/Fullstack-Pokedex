@@ -82,3 +82,8 @@ a {
   background-color: white;
   color: black;
 }
+
+.teams {
+  border: 1px solid black;
+  margin-top: 1em;
+}
