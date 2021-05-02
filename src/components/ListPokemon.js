@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import SelectedPokemon from "../components/SelectedPokemon";
 
 const ListPokemon = ({ individualPokemon }) => {
   const [pokeData, setPokemonData] = useState();
   const [infoClass, setInfoClass] = useState("info-hidden");
   const [toggleInfoText, setInfoText] = useState("Show Info");
   const toggleInfo = () => {
+    //check state of class on info container
+    //switch from visible to hidden and vice versa on button click
     setInfoClass(infoClass === "info-hidden" ? "info-visible" : "info-hidden");
     setInfoText(toggleInfoText === "Show Info" ? "Hide Info" : "Show Info");
   };
@@ -46,6 +47,8 @@ const ListPokemon = ({ individualPokemon }) => {
       </div>
     );
   } else {
+    //spinner loading icon while the list
+    //of pokemon is rendering from API calls
     return (
       <div className="lds-spinner">
         <div></div>

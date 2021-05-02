@@ -1,5 +1,5 @@
 import React from "react";
-import TypeFilteredPokemon from "../components/TypeFilteredPokemon";
+import ListPokemon from "./ListPokemon";
 
 const Filtered = ({ data }) => {
   if (!data) {
@@ -8,7 +8,9 @@ const Filtered = ({ data }) => {
     return (
       <div className="grid">
         {data.map((element) => (
-          <TypeFilteredPokemon pokemonName={element.pokemon.name} />
+          <div>
+            <ListPokemon individualPokemon={element.pokemon.name} />
+          </div>
         ))}
       </div>
     );
