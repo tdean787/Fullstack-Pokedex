@@ -122,3 +122,23 @@ a {
   position: relative;
   top: 1px;
 }
+
+.comments-list {
+  text-align: left;
+  text-transform: lowercase;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 1em;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+textarea:focus,
+input:focus {
+  border: 2px solid #900;
+}

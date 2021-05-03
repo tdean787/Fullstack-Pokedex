@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { BrowserRouter as Route, Link } from "react-router-dom";
 import Teams from "./Teams";
+import Comments from "./Comments";
+
 const SelectedPokemon = (props) => {
   let { name } = useParams();
   const [pokeData, setPokeData] = useState();
@@ -146,6 +148,7 @@ const SelectedPokemon = (props) => {
             </div>
           )}
         </div>
+        <Comments pokemonName={name} />
         <Teams pokeName={name} />
       </div>
     );
