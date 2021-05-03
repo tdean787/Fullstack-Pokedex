@@ -4,30 +4,31 @@ This is a work in progress MERN (MongoDB, Express, React, Node) project original
 
 #### Some TODOS:
 
-
 Add different database features e.g. favoriting pokemon, creating a team.
 
-- MongoDB now connected to app. Currently, a user could write in a team name and submit their selected pokemon to that team. the teams and pokemon are each unique objects in the same collection. Teams are not segmented by collection or database.
+- MongoDB now connected to app. A user can write in their team name and add pokemon to that team. Future addition should allow user to select an already created team and add to that one instead of writing in each time. Most likely can be implemented by checking if text input is blank or dropdown is selected.
 
-Learn about user authentication; attempt to implement
+- Users can delete a pokemon from a team now. TODO: add the ability to delete an entire team at once: mongoose library to delete many:
 
-Explore database and hosting options and alternatives
+#### mongoose deleteMany({team: "whatever team is selected" }).then(do something - tell user team is deleted, render a new view, etc.)
 
-Style app
+Learn about user authentication; attempt to implement - Auth0?
 
-Implement the data/display for pokemon that the selected evolves to. Complications with API endpoint and resulting data in the evolution chain 
+Style app - Tailwind, Material UI, styled-components
+
+Implement the data/display for pokemon that the selected evolves to. Complications with API endpoint and resulting data in the evolution chain
 
 - evolution chain rendering 95% complete. TODO: add method to handle pokemon with multiple evolution forms e.g. eevee
 
- ~~Add a filter search method based on stats, type, etc.~~
- 
- ~~Implement routing functionality. Click a displayed pokemon/result and go into a more detailed page/component~~
+~~Add a filter search method based on stats, type, etc.~~
+
+~~Implement routing functionality. Click a displayed pokemon/result and go into a more detailed page/component~~
 
 ~~The project is currently hosted on Netlify~~
 
 ~~[React PokeDex](https://cool-react-pokedex.netlify.app/)~~
 
-Project is moving to Heroku for hosting, easier integration with newly created backend
+Project is on Heroku now, serves build file and is connected to mongoDB
 
 https://react-pokedex-tdean787.herokuapp.com/
 
