@@ -35,7 +35,7 @@ a {
   text-align: center;
   text-transform: capitalize;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .searchResult {
@@ -167,6 +167,7 @@ nav {
 
 header {
   text-align: center;
+  margin-top: 2em;
 }
 
 .search-form {

@@ -5,20 +5,6 @@ const Comments = ({ pokemonName }) => {
   const [comments, setComments] = useState();
   const [newComment, setNewComment] = useState("");
 
-  const [infoText, setInfoText] = useState("Show Comment Form");
-  const [infoClass, setInfoClass] = useState("info-hidden");
-
-  const toggleInfo = () => {
-    //check state of class on info container
-    //switch from visible to hidden and vice versa on button click
-    setInfoClass(infoClass === "info-hidden" ? "info-visible" : "info-hidden");
-    setInfoText(
-      infoText === "Show Comment Form"
-        ? "Hide Comment Form"
-        : "Show Comment Form"
-    );
-  };
-
   useEffect(() => {
     axios.get(`/api/pokemon/comments/${pokemonName}`).then((response) => {
       if (response.data.length === 0) {
@@ -76,8 +62,7 @@ const Comments = ({ pokemonName }) => {
       )}
 
       <div>
-        <button onClick={toggleInfo}>{infoText}</button>
-        <form className={infoClass + " comment-form"} onSubmit={addComment}>
+        <form className={" comment-form"} onSubmit={addComment}>
           <label for="comment">Comment</label>
           <input
             name="comment"

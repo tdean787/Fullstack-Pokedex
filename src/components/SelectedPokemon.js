@@ -14,12 +14,7 @@ const SelectedPokemon = ({ match }) => {
   const [evolvesToObj, setEvolvesToObj] = useState();
 
   let evoChain = [];
-  let history = useHistory();
   let evolutionChainURL;
-
-  function handleClick() {
-    history.push("/");
-  }
 
   //get initial data for selected pokemon
   useEffect(() => {
@@ -78,14 +73,14 @@ const SelectedPokemon = ({ match }) => {
     axios.get(`/pokemon/${name}`).then((response) => console.log(response));
     return (
       <div className={`selected`}>
-        <button onClick={handleClick}>Home</button>
+        {/* <button onClick={handleClick}>Home</button> */}
         <h2> {pokeData.name} </h2>
         <p id="flavor-text">{pokeFlavor}</p>
         <div className="evoSprites">
           {evolvesFromObj && (
             <div>
               {evolvesFromObj.name !== pokeData.name && (
-                <Link to={`/${evolvesFromObj.name}`}>
+                <Link to={`/pokemon/${evolvesFromObj.name}`}>
                   <div>
                     <img
                       alt={evolvesFromObj.name}
@@ -109,7 +104,7 @@ const SelectedPokemon = ({ match }) => {
           {evolvesToObj && (
             <div>
               {evolvesToObj.name !== pokeData.name && (
-                <Link to={`/${evolvesToObj.name}`}>
+                <Link to={`/pokemon/${evolvesToObj.name}`}>
                   <div>
                     <img
                       alt={evolvesToObj.name}

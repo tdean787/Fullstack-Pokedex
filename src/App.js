@@ -15,11 +15,10 @@ const HomePage = () => {
   const [searchText, setSearch] = useState("");
   const [allPokemon, setAllPokemon] = useState();
   const [apiError, setError] = useState("");
-
   const [selectedType, setSelectedType] = useState("all");
-
   const [typeFilteredPokemon, setTypeFilteredPokemon] = useState("");
 
+  const [paginatedData, setData] = useState();
   const callPokeAPI = (event) => {
     event.preventDefault();
     axios
@@ -47,6 +46,13 @@ const HomePage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    axios.get("https://pokeapi.co/api/v2/pokemon").then((response) => {
+      setData(response.data.results);
+      console.log(response.data);
+    });
+  }, []);
+
   const typeChange = (event) => {
     setSelectedType(event.target.value);
     if (event.target.value !== "all") {
@@ -70,7 +76,7 @@ const HomePage = () => {
             onChange={updateSearch}
           />
 
-          <button type="submit" onClick={callPokeAPI}>
+          <button class="btn" type="submit" onClick={callPokeAPI}>
             search for pokemon
           </button>
 
@@ -85,6 +91,8 @@ const HomePage = () => {
             <option value="fighting">fighting</option>
             <option value="ice">ice</option>
             <option value="psychic">psychic</option>
+            <option value="fairy">fairy</option>
+            <option value="ghost">ghost</option>
           </select>
         </form>
       </div>
@@ -137,21 +145,17 @@ function App() {
             </button>
           </ul>
         </nav>
-        <Switch>
-          <Route path="/teams">
-            <Teams />
-          </Route>
-          <Route path="/pokemon/:name">
-            <SelectedPokemon />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-          <Route component={HomePage}></Route>
-          <Route path="*">
-            <HomePage />
-          </Route>
-        </Switch>
+        <Route path="/teams">
+          <Teams />
+        </Route>
+        <Route path="/pokemon/:name" component={SelectedPokemon} />
+        <Route path="/">
+          <HomePage />
+        </Route>
+        <Route component={HomePage}></Route>
+        {/* <Route path="*">
+          <HomePage />
+        </Route> */}
       </Router>
     </div>
   );
