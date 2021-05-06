@@ -5,7 +5,7 @@ const Pokemon = (props) => {
     console.log(props.apiError);
     return <p> No PokeMon found with that name </p>;
   } else if (props.pokemonData.length === 0) {
-    return <p>Search for a PokeMon!</p>;
+    return null;
   } else {
     let backgroundColor = props.pokemonData.types[0].type.name;
     return (

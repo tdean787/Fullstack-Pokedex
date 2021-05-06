@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const TeamMember = ({
   pokemonName,
@@ -33,13 +34,15 @@ const TeamMember = ({
   return (
     <div>
       {pokeData && (
-        <div className={pokeData.types[0].type.name}>
+        <div className={pokeData.types[0].type.name + " team-member"}>
           <h3>{pokeData.name}</h3>
-          {id}
-          <img
-            alt={`${pokeData.name} sprite`}
-            src={pokeData.sprites.front_default}
-          ></img>
+          {/* {id} */}
+          <Link to={`/pokemon/${pokeData.name}`}>
+            <img
+              alt={`${pokeData.name} sprite`}
+              src={pokeData.sprites.front_default}
+            ></img>
+          </Link>
           <button onClick={deletePokemon}>Delete Pokemon</button>
         </div>
       )}

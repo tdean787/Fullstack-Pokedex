@@ -24,7 +24,7 @@ const ListPokemon = ({ individualPokemon }) => {
     let pokemonClass = "shadow-drop-br tile " + pokeData.types[0].type.name;
     return (
       <div className={pokemonClass}>
-        <Link key={pokeData.id} to={`/${pokeData.name}`}>
+        <Link key={pokeData.id} to={`/pokemon/${pokeData.name}`}>
           <h3> {pokeData.name} </h3>
           <img
             alt={`${pokeData.name} sprite`}

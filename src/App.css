@@ -8,11 +8,11 @@ a {
 }
 
 .tile {
-  max-width: 300px;
+  max-width: 200px;
   display: flex;
   text-align: center;
   flex-direction: column;
-  margin: 15px;
+  margin: 5px;
   border-radius: 12px;
   text-transform: capitalize;
   border: 1px solid black;
@@ -24,7 +24,7 @@ a {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
 .selected {
@@ -89,6 +89,18 @@ a {
   margin-top: 1em;
 }
 
+.displayed-team {
+  display: flex;
+  text-transform: capitalize;
+}
+
+.team-member {
+  flex-direction: column;
+  display: flex;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
 .info-hidden {
   display: none;
 }
@@ -141,4 +153,32 @@ a {
 textarea:focus,
 input:focus {
   border: 2px solid #900;
+}
+
+nav {
+  padding: 15px;
+  background-color: #f1f1f1;
+}
+
+.links {
+  display: inline;
+  margin: 0 10px;
+}
+
+header {
+  text-align: center;
+}
+
+.search-form {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.search-form button,
+input,
+label {
+  margin: 5px;
 }

@@ -76,24 +76,26 @@ const Teams = ({ pokeName }) => {
       {displayedTeam && (
         <div>
           <h3>{displayedTeam[0].pokemonTeamName}</h3>
-          {displayedTeam.map((element) => (
-            <div key={element.id}>
-              <p>
-                {" "}
-                {/* need to pass down displayedTeam state here
+          <div class="displayed-team">
+            {displayedTeam.map((element) => (
+              <div key={element.id}>
+                <p>
+                  {" "}
+                  {/* need to pass down displayedTeam state here
                 in order to rerender the displayed pokemon after a 
                 successful delete operation */}
-                <TeamMember
-                  pokemonName={element.pokemonName}
-                  pokemonTeamName={element.pokemonTeamName}
-                  id={element.id}
-                  key={element.id}
-                  displayedTeam={displayedTeam}
-                  setDisplayedTeam={setDisplayedTeam}
-                />
-              </p>
-            </div>
-          ))}
+                  <TeamMember
+                    pokemonName={element.pokemonName}
+                    pokemonTeamName={element.pokemonTeamName}
+                    id={element.id}
+                    key={element.id}
+                    displayedTeam={displayedTeam}
+                    setDisplayedTeam={setDisplayedTeam}
+                  />
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import "./animista.css";
+import "tailwindcss/tailwind.css";
 import Pokemon from "./components/Pokemon";
 import AllPokemon from "./components/AllPokemon";
 import SelectedPokemon from "./components/SelectedPokemon";
@@ -60,10 +61,10 @@ const HomePage = () => {
   return (
     <div className="App">
       <header>
-        <p>pokedex</p>
+        <h2>PokeDex</h2>
       </header>
       <div>
-        <form>
+        <form class="search-form">
           <input
             placeholder="type the pokemon name here"
             onChange={updateSearch}
@@ -94,10 +95,6 @@ const HomePage = () => {
           </div>
         </Link>
       </div>
-      <p>
-        Data pulled from PokeAPI:{" "}
-        <a href="https://pokeapi.co/">https://pokeapi.co/</a>
-      </p>{" "}
       <div className="all-pokemon-container">
         {selectedType !== "all" && (
           <Filtered selectedType={selectedType} data={typeFilteredPokemon} />
@@ -122,33 +119,32 @@ function App() {
 
   return (
     <div className={themeState}>
-      <button onClick={toggleTheme}>
-        {" "}
-        Toggle {themeState === "light" ? "dark" : "light"}{" "}
-      </button>
       <Router>
         <nav>
           <ul>
-            <li>
+            <li class="links">
               <Link to="/">Home</Link>
             </li>
-            <li>
+            <li class="links">
               <Link to="/about">About</Link>
             </li>
-            <li>
+            <li class="links">
               <Link to="/teams">Teams</Link>
             </li>
+            <button onClick={toggleTheme}>
+              {" "}
+              Toggle {themeState === "light" ? "dark" : "light"}{" "}
+            </button>
           </ul>
         </nav>
         <Switch>
           <Route path="/teams">
             <Teams />
           </Route>
-          <Route path="/:name">
+          <Route path="/pokemon/:name">
             <SelectedPokemon />
           </Route>
           <Route path="/">
-            <Teams />
             <HomePage />
           </Route>
           <Route component={HomePage}></Route>

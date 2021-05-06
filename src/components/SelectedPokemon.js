@@ -5,7 +5,7 @@ import { BrowserRouter as Route, Link } from "react-router-dom";
 import Teams from "./Teams";
 import Comments from "./Comments";
 
-const SelectedPokemon = (props) => {
+const SelectedPokemon = ({ match }) => {
   let { name } = useParams();
   const [pokeData, setPokeData] = useState();
   const [pokeFlavor, setPokeFlavor] = useState();
@@ -74,19 +74,8 @@ const SelectedPokemon = (props) => {
       });
   }, [name]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/pokemon-teams")
-  //     .then((response) => {
-  //       let mappedTeams = response.data.map(
-  //         (element) => element.pokemonTeamName
-  //       );
-  //       setUniqueTeams([...new Set(mappedTeams)]);
-  //     })
-  //     .then((res) => console.log(uniqueTeams));
-  // }, []);
-
   if (pokeData) {
+    axios.get(`/pokemon/${name}`).then((response) => console.log(response));
     return (
       <div className={`selected`}>
         <button onClick={handleClick}>Home</button>
@@ -153,6 +142,12 @@ const SelectedPokemon = (props) => {
       </div>
     );
   } else {
+    axios.get(`/pokemon/${name}`).then((response) => {
+      console.log(response.data);
+      console.log(response);
+      console.log(name);
+    });
+
     //waiting for pokeData to load
     return <p> loading </p>;
   }
