@@ -9,6 +9,7 @@ import AllPokemon from "./components/AllPokemon";
 import SelectedPokemon from "./components/SelectedPokemon";
 import Filtered from "./components/Filtered";
 import Teams from "./components/Teams";
+import About from "./components/About";
 
 const HomePage = () => {
   const [pokemonData, setPokemonData] = useState([]);
@@ -18,7 +19,6 @@ const HomePage = () => {
   const [selectedType, setSelectedType] = useState("all");
   const [typeFilteredPokemon, setTypeFilteredPokemon] = useState("");
 
-  const [paginatedData, setData] = useState();
   const callPokeAPI = (event) => {
     event.preventDefault();
     axios
@@ -43,14 +43,8 @@ const HomePage = () => {
       .get("https://pokeapi.co/api/v2/pokemon?limit=151")
       .then((response) => {
         setAllPokemon({ ...response.data });
+        console.log(response.data);
       });
-  }, []);
-
-  useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon").then((response) => {
-      setData(response.data.results);
-      console.log(response.data);
-    });
   }, []);
 
   const typeChange = (event) => {
@@ -139,23 +133,22 @@ function App() {
             <li class="links">
               <Link to="/teams">Teams</Link>
             </li>
-            <button onClick={toggleTheme}>
+            {/* <button onClick={toggleTheme}>
               {" "}
               Toggle {themeState === "light" ? "dark" : "light"}{" "}
-            </button>
+            </button> */}
           </ul>
         </nav>
-        <Route path="/teams">
-          <Teams />
-        </Route>
-        <Route path="/pokemon/:name" component={SelectedPokemon} />
-        <Route path="/">
-          <HomePage />
-        </Route>
-        <Route component={HomePage}></Route>
-        {/* <Route path="*">
-          <HomePage />
-        </Route> */}
+        <Switch>
+          <Route path="/teams">
+            <Teams />
+          </Route>
+          <Route path="/pokemon/:name" component={SelectedPokemon} />
+          <Route path="/about" component={About} />
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
       </Router>
     </div>
   );

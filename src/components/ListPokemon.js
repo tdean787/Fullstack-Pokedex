@@ -12,13 +12,13 @@ const ListPokemon = ({ individualPokemon }) => {
     setInfoClass(infoClass === "info-hidden" ? "info-visible" : "info-hidden");
     setInfoText(toggleInfoText === "Show Info" ? "Hide Info" : "Show Info");
   };
-  useEffect(() => {
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${individualPokemon}/`)
-      .then((response) => {
-        setPokemonData(response.data);
-      });
-  }, [individualPokemon]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://pokeapi.co/api/v2/pokemon/${individualPokemon}/`)
+  //     .then((response) => {
+  //       setPokemonData(response.data);
+  //     });
+  // }, [individualPokemon]);
 
   if (pokeData) {
     let pokemonClass = "shadow-drop-br tile " + pokeData.types[0].type.name;

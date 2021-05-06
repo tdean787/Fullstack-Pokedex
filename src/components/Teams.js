@@ -46,6 +46,7 @@ const Teams = ({ pokeName }) => {
         setUniqueTeams([...new Set(mappedTeams)]);
       })
       .then((res) => console.log(uniqueTeams));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayedTeam]);
   return (
     <div className="teams">

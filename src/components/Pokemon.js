@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SelectedPokemon from "./SelectedPokemon";
 
 const Pokemon = (props) => {
   if (props.apiError) {

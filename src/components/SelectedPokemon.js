@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { BrowserRouter as Route, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Teams from "./Teams";
 import Comments from "./Comments";
 

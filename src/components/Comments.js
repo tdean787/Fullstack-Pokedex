@@ -46,7 +46,7 @@ const Comments = ({ pokemonName }) => {
     <div>
       {comments && (
         <div className="comments-list">
-          {comments[0].commentPokemonName == pokemonName && (
+          {comments[0].commentPokemonName === pokemonName && (
             <div>
               <h3>Comments about {pokemonName}</h3>
 
