@@ -7,6 +7,18 @@ a {
   color: inherit;
 }
 
+table {
+  border-spacing: 15px 0;
+  text-align: left;
+}
+
+.moves {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -20,7 +32,7 @@ a {
 }
 
 .tile {
-  max-width: 200px;
+  max-width: 185px;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -35,9 +47,13 @@ a {
   filter: brightness(90%);
 }
 
+.tile img {
+  width: 175px;
+  height: 175px;
+}
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
 }
 
 .selected {
@@ -82,6 +98,13 @@ a {
   text-transform: none;
 }
 
+.poke-font {
+  font-family: "Press Start 2P", sans-serif;
+  color: #f7c406;
+  text-shadow: 4px 4px #326bac;
+  font-size: 2em;
+}
+
 .all-pokemon-container {
   margin: 0 auto;
   max-width: 1095px;
@@ -101,7 +124,7 @@ a {
   border: 1px solid black;
   background-color: #f1f1f1;
   padding: 1em;
-  margin-top: 1em;
+  margin: 1.5em 0;
 }
 
 .displayed-team {
@@ -116,6 +139,7 @@ a {
   padding: 10px;
   border-radius: 5px;
 }
+
 .info-hidden {
   display: none;
 }
@@ -182,7 +206,11 @@ nav {
 
 header {
   text-align: center;
-  margin-top: 2em;
+  margin: 0.5em;
+}
+
+header h2 {
+  margin: unset;
 }
 
 .search-form {

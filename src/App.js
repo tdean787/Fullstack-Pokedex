@@ -64,7 +64,7 @@ const HomePage = () => {
 
   return (
     <div className="App">
-      <header>
+      <header className="poke-font">
         <h2>PokeDex</h2>
       </header>
       <div>

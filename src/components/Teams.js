@@ -31,7 +31,6 @@ const Teams = ({ pokeName }) => {
   const addFromTeamOption = () => {
     console.log(selectedTeamOption);
     console.log(typeof selectedTeamOption);
-    debugger;
     let pokemonObj = {
       pokemonName: pokeName,
       pokemonTeamName: selectedTeamOption,
@@ -51,7 +50,7 @@ const Teams = ({ pokeName }) => {
         })
         .catch((error) => console.log(error));
     } else {
-      alert("You need to select a team");
+      alert("You need to select a team from the dropdown for this action");
     }
   };
 
@@ -122,7 +121,11 @@ const Teams = ({ pokeName }) => {
               <option>{pokemon}</option>
             ))}
           </select>
-          <button onClick={addFromTeamOption}>Add to the displayed team</button>
+          {pokeName && (
+            <button onClick={addFromTeamOption}>
+              Add to team from dropdown
+            </button>
+          )}
         </div>
       )}
 
