@@ -72,7 +72,7 @@ const SelectedPokemon = ({ match }) => {
   if (pokeData) {
     axios.get(`/pokemon/${name}`).then((response) => console.log(response));
     return (
-      <div className={`selected`}>
+      <div className={`selected ${pokeData.types[0].type.name}`}>
         {/* <button onClick={handleClick}>Home</button> */}
         <h2> {pokeData.name} </h2>
         <p id="flavor-text">{pokeFlavor}</p>
@@ -117,7 +117,13 @@ const SelectedPokemon = ({ match }) => {
             </div>
           )}
         </div>
-        <div className="pokeStats">
+        <div>
+          <p>Pokemon Types</p>
+          {pokeData.types.map((item) => (
+            <li>{item.type.name}</li>
+          ))}
+        </div>
+        <div style={{ paddingTop: "1em" }} className="pokeStats">
           <button onClick={() => toggleStats(!showStats)}>
             {showStats === true ? <p>Hide Stats</p> : <p>Show Stats</p>}
           </button>
