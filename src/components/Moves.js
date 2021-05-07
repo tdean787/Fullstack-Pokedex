@@ -27,7 +27,8 @@ const Moves = ({ name }) => {
               (item) => item.version_group_details[0].level_learned_at !== 0
             )
           );
-        });
+        })
+        .catch((error) => console.log("moves error", error));
     }
   }, [name]);
 
@@ -50,16 +51,16 @@ const Moves = ({ name }) => {
 
       {moves && (
         <table className={displayClass}>
-          <th>Level</th>
-          <th>Move</th>
-          {moves
-            .sort((a, b) => a[1] - b[1])
-            .map((element) => (
-              <tr>
-                <td>{element[1]}</td>
-                <td>{element[0]}</td>
-              </tr>
-            ))}
+          <tbody>
+            {moves
+              .sort((a, b) => a[1] - b[1])
+              .map((element, index) => (
+                <tr key={index}>
+                  <td>{element[1]}</td>
+                  <td>{element[0]}</td>
+                </tr>
+              ))}
+          </tbody>
         </table>
       )}
     </div>
