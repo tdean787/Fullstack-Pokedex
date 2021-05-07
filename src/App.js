@@ -1,6 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as HashRouter,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
 import "./App.css";
 import "./animista.css";
 import Pokemon from "./components/Pokemon";
@@ -120,7 +125,7 @@ function App() {
 
   return (
     <div className={themeState}>
-      <Router>
+      <HashRouter>
         <nav>
           <ul>
             <li class="links">
@@ -139,16 +144,17 @@ function App() {
           </ul>
         </nav>
         <Switch>
-          <Route path="/teams">
+          <Route exact path="/teams">
             <Teams />
           </Route>
-          <Route path="/pokemon/:name" component={SelectedPokemon} />
-          <Route path="/about" component={About} />
-          <Route path="/">
+          <Route exact path="/pokemon/:name" component={SelectedPokemon} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/">
             <HomePage />
           </Route>
+          <Route component={HomePage} />
         </Switch>
-      </Router>
+      </HashRouter>
     </div>
   );
 }
