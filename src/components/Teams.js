@@ -6,6 +6,7 @@ const Teams = ({ pokeName }) => {
   const [teamName, setTeamNameState] = useState();
   const [uniqueTeams, setUniqueTeams] = useState();
   const [displayedTeam, setDisplayedTeam] = useState();
+  const [selectedTeamOption, setTeamOption] = useState();
 
   const setTeamName = (event) => {
     setTeamNameState(event.target.value);
@@ -19,6 +20,28 @@ const Teams = ({ pokeName }) => {
         console.log(response.data);
       })
       .catch((error) => console.log(error));
+    setTeamOption(e.target.value);
+  };
+
+  const addFromTeamOption = () => {
+    console.log(selectedTeamOption);
+    let pokemonObj = {
+      pokemonName: pokeName,
+      pokemonTeamName: selectedTeamOption,
+    };
+    axios
+      .post("/api/pokemon-teams", pokemonObj)
+      .then(() => {
+        //this should refresh the teams select dropdown when a new
+        //team is added for the first time
+        axios
+          .get(`/api/pokemon-teams/${selectedTeamOption}`)
+          .then((response) => {
+            setDisplayedTeam(response.data);
+            console.log(response.data);
+          });
+      })
+      .catch((error) => console.log(error));
   };
   const addPokemon = () => {
     if (pokeName) {
@@ -27,10 +50,27 @@ const Teams = ({ pokeName }) => {
         pokemonTeamName: teamName,
       };
 
-      axios
-        .post("/api/pokemon-teams", pokemonObj)
-        .then(() => setTeamNameState(""))
-        .catch((error) => console.log(error));
+      if (teamName && displayedTeam) {
+        axios
+          .post("/api/pokemon-teams", pokemonObj)
+          .then(() => setTeamNameState(""))
+          .then(() => {
+            //this should refresh the teams select dropdown when a new
+            //team is added for the first time
+            axios
+              .get("/api/pokemon-teams")
+              .then((response) => {
+                let mappedTeams = response.data.map(
+                  (element) => element.pokemonTeamName
+                );
+                setUniqueTeams([...new Set(mappedTeams)]);
+              })
+              .then((res) => console.log(uniqueTeams));
+          })
+          .catch((error) => console.log(error));
+      } else if (!teamName) {
+        alert("you need to enter a team name");
+      }
     } else {
       console.log("error adding");
     }
@@ -66,10 +106,12 @@ const Teams = ({ pokeName }) => {
       {uniqueTeams && (
         <div>
           <select onChange={teamChange}>
+            <option></option>
             {uniqueTeams.map((pokemon) => (
               <option>{pokemon}</option>
             ))}
           </select>
+          <button onClick={addFromTeamOption}>Add to the displayed team</button>
         </div>
       )}
 
