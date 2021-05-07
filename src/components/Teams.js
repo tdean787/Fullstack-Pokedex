@@ -13,47 +13,58 @@ const Teams = ({ pokeName }) => {
   };
 
   const teamChange = (e) => {
-    axios
-      .get(`/api/pokemon-teams/${e.target.value}`)
-      .then((response) => {
-        setDisplayedTeam(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error));
+    if (e.target.value) {
+      axios
+        .get(`/api/pokemon-teams/${e.target.value}`)
+        .then((response) => {
+          setDisplayedTeam(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      setDisplayedTeam("");
+    }
+
     setTeamOption(e.target.value);
   };
 
   const addFromTeamOption = () => {
     console.log(selectedTeamOption);
+    console.log(typeof selectedTeamOption);
+    debugger;
     let pokemonObj = {
       pokemonName: pokeName,
       pokemonTeamName: selectedTeamOption,
     };
-    axios
-      .post("/api/pokemon-teams", pokemonObj)
-      .then(() => {
-        //this should refresh the teams select dropdown when a new
-        //team is added for the first time
-        axios
-          .get(`/api/pokemon-teams/${selectedTeamOption}`)
-          .then((response) => {
-            setDisplayedTeam(response.data);
-            console.log(response.data);
-          });
-      })
-      .catch((error) => console.log(error));
+    if (selectedTeamOption) {
+      axios
+        .post("/api/pokemon-teams", pokemonObj)
+        .then(() => {
+          //this should refresh the teams select dropdown when a new
+          //team is added for the first time
+          axios
+            .get(`/api/pokemon-teams/${selectedTeamOption}`)
+            .then((response) => {
+              setDisplayedTeam(response.data);
+              console.log(response.data);
+            });
+        })
+        .catch((error) => console.log(error));
+    } else {
+      alert("You need to select a team");
+    }
   };
+
   const addPokemon = () => {
     if (pokeName) {
       let pokemonObj = {
         pokemonName: pokeName,
         pokemonTeamName: teamName,
       };
-
-      if (teamName && displayedTeam) {
+      console.log(pokemonObj);
+      if (teamName) {
         axios
           .post("/api/pokemon-teams", pokemonObj)
-          .then(() => setTeamNameState(""))
           .then(() => {
             //this should refresh the teams select dropdown when a new
             //team is added for the first time
