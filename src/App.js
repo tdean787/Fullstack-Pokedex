@@ -124,38 +124,36 @@ function App() {
   };
 
   return (
-    <div className={themeState}>
-      <HashRouter>
-        <nav>
-          <ul>
-            <li class="links">
-              <Link to="/">Home</Link>
-            </li>
-            <li class="links">
-              <Link to="/about">About</Link>
-            </li>
-            <li class="links">
-              <Link to="/teams">Teams</Link>
-            </li>
-            {/* <button onClick={toggleTheme}>
+    <HashRouter>
+      <nav>
+        <ul>
+          <li class="links">
+            <Link to="/">Home</Link>
+          </li>
+          <li class="links">
+            <Link to="/about">About</Link>
+          </li>
+          <li class="links">
+            <Link to="/teams">Teams</Link>
+          </li>
+          {/* <button onClick={toggleTheme}>
               {" "}
               Toggle {themeState === "light" ? "dark" : "light"}{" "}
             </button> */}
-          </ul>
-        </nav>
-        <Switch>
-          <Route exact path="/teams">
-            <Teams />
-          </Route>
-          <Route exact path="/pokemon/:name" component={SelectedPokemon} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route component={HomePage} />
-        </Switch>
-      </HashRouter>
-    </div>
+        </ul>
+      </nav>
+      <Switch>
+        <Route exact path="/teams">
+          <Teams />
+        </Route>
+        <Route exact path="/pokemon/:name" component={SelectedPokemon} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route component={HomePage} />
+      </Switch>
+    </HashRouter>
   );
 }
 

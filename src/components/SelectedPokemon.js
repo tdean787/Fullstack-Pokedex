@@ -135,22 +135,7 @@ const SelectedPokemon = ({ match }) => {
           )} */}
           <Moves name={name} />
         </div>
-        <div style={{ paddingTop: "1em" }} className="pokeStats">
-          <button onClick={() => toggleStats(!showStats)}>
-            {showStats === true ? <p>Hide Stats</p> : <p>Show Stats</p>}
-          </button>
-          <StatCharts statsData={pokeData.stats} />
-          {showStats === true && (
-            <div>
-              {pokeData.stats.map((item) => (
-                <li>
-                  {" "}
-                  {item.stat.name} {item.base_stat}
-                </li>
-              ))}
-            </div>
-          )}
-        </div>
+        <StatCharts statsData={pokeData.stats} />
         <Comments pokemonName={name} />
         <Teams pokeName={name} />
       </div>

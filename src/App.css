@@ -140,11 +140,11 @@ table {
   border-radius: 5px;
 }
 
-.info-hidden {
+.hidden {
   display: none;
 }
 
-.info-visible {
+.visible {
   display: visible;
 }
 
@@ -225,4 +225,9 @@ header h2 {
 input,
 label {
   margin: 5px;
+}
+
+#myChart {
+  background-color: #f1f1f1;
+  margin: 1em 0;
 }

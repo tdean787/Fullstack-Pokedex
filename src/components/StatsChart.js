@@ -1,7 +1,11 @@
-import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
-import * as d3 from "d3";
 import { Chart, registerables } from "chart.js";
+import styled from "styled-components";
+
+const StyledChart = styled.div`
+  height: 400px;
+  width: 300px;
+`;
 
 const StatsChart = ({ statsData }) => {
   Chart.register(...registerables);
@@ -9,6 +13,12 @@ const StatsChart = ({ statsData }) => {
   let statNames = [];
   let ctx;
   const chartRef = useRef();
+
+  const [visibility, setVisibility] = useState("hidden");
+  const toggle = () => {
+    setVisibility(visibility === "hidden" ? "visible" : "hidden");
+    console.log(visibility);
+  };
 
   useEffect(() => {
     ctx = document.getElementById("myChart").getContext("2d");
@@ -19,8 +29,6 @@ const StatsChart = ({ statsData }) => {
   //   const ctx = document.querySelector("#myChart").getContext("2d");
 
   useEffect(() => {
-    console.log(statsData);
-
     statsData.forEach((item, index) => {
       stats.push(item.base_stat);
       statNames.push(item.stat.name);
@@ -29,12 +37,17 @@ const StatsChart = ({ statsData }) => {
     if (stats.length > 0) {
       const myChart = new Chart(ctx, {
         type: "bar",
+        options: {
+          indexAxis: "y",
+          maintainAspectRatio: false,
+        },
         data: {
           labels: statNames,
           datasets: [
             {
               label: "Stats",
               data: stats,
+              backgroundColor: "lightblue",
             },
           ],
         },
@@ -42,7 +55,16 @@ const StatsChart = ({ statsData }) => {
     }
   }, [statsData]);
 
-  return <canvas ref={chartRef} id="myChart"></canvas>;
+  return (
+    <div>
+      <button class="btn" onClick={toggle}>
+        Toggle Stats
+      </button>
+      <StyledChart className={visibility}>
+        <canvas ref={chartRef} id="myChart"></canvas>
+      </StyledChart>
+    </div>
+  );
 };
 
 export default StatsChart;

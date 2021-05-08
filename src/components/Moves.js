@@ -5,15 +5,10 @@ const Moves = ({ name }) => {
   const [moves, setMoves] = useState();
   const [levelUpMoves, setLevelUpMoves] = useState();
 
-  const [displayClass, setDisplayClass] = useState("info-hidden");
-
-  const toggleMoves = () => {
-    //this should be a ternarny condition check but having issues resolving
-    if (displayClass === "info-hidden") {
-      setDisplayClass("info-visible");
-    } else if (displayClass === "info-visible") {
-      setDisplayClass("info-hidden");
-    }
+  const [visibility, setVisibility] = useState("hidden");
+  const toggle = () => {
+    setVisibility(visibility === "hidden" ? "visible" : "hidden");
+    console.log(visibility);
   };
 
   useEffect(() => {
@@ -44,13 +39,13 @@ const Moves = ({ name }) => {
   }, [levelUpMoves]);
   return (
     <div className="moves">
-      <button onClick={toggleMoves} className="btn">
+      <button onClick={toggle} className="btn">
         Show Me Your Moves
       </button>
       {/* {console.log(moves.sort((a, b) => a[1] - b[1]))} */}
 
       {moves && (
-        <table className={displayClass}>
+        <table className={visibility}>
           <tbody>
             {moves
               .sort((a, b) => a[1] - b[1])
