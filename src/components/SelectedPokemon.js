@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Teams from "./Teams";
 import Comments from "./Comments";
 import Moves from "./Moves";
+import StatCharts from "./StatsChart";
 
 const SelectedPokemon = ({ match }) => {
   let { name } = useParams();
@@ -127,17 +128,18 @@ const SelectedPokemon = ({ match }) => {
 
         {/* moves */}
         <div>
-          {console.log(
+          {/* {console.log(
             pokeData.moves.filter(
               (item) => item.version_group_details.level_learned_at !== 0
             )
-          )}
+          )} */}
           <Moves name={name} />
         </div>
         <div style={{ paddingTop: "1em" }} className="pokeStats">
           <button onClick={() => toggleStats(!showStats)}>
             {showStats === true ? <p>Hide Stats</p> : <p>Show Stats</p>}
           </button>
+          <StatCharts statsData={pokeData.stats} />
           {showStats === true && (
             <div>
               {pokeData.stats.map((item) => (
