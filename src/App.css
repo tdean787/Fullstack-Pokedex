@@ -12,6 +12,11 @@ table {
   text-align: left;
 }
 
+th {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
 .moves {
   display: flex;
   flex-direction: column;
@@ -54,6 +59,12 @@ table {
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
 }
 
 .selected {
@@ -117,7 +128,7 @@ table {
 
 .light {
   background-color: white;
-  color: black;
+  color: #000000;
 }
 
 .teams {
@@ -225,9 +236,4 @@ header h2 {
 input,
 label {
   margin: 5px;
-}
-
-#myChart {
-  background-color: #f1f1f1;
-  margin: 1em 0;
 }

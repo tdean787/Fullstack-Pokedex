@@ -125,8 +125,8 @@ const SelectedPokemon = ({ match }) => {
               </div>
             )}
           </div>
-          <div style={{ textAlign: "left" }}>
-            <p>Pokemon Types</p>
+          <div>
+            <p style={{ fontWeight: "bold" }}>Types</p>
             {pokeData.types.map((item) => (
               <p>{item.type.name}</p>
             ))}
@@ -141,7 +141,7 @@ const SelectedPokemon = ({ match }) => {
           )} */}
             <Moves name={name} />
           </div>
-          <StatCharts statsData={pokeData.stats} />
+          <StatCharts pokemonName={name} statsData={pokeData.stats} />
           <Comments pokemonName={name} />
           <Teams pokeName={name} />
         </div>

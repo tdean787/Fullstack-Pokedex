@@ -1,9 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
+const Table = styled.table`
+  border: 1px solid black;
+  background-color: #f2f2f2;
+  padding: 5px;
+`;
 const Moves = ({ name }) => {
   const [moves, setMoves] = useState();
   const [levelUpMoves, setLevelUpMoves] = useState();
+  const [TMmoves, setTMmoves] = useState();
 
   const [visibility, setVisibility] = useState("hidden");
   const toggle = () => {
@@ -19,7 +26,17 @@ const Moves = ({ name }) => {
           setMoves(response.data.moves);
           setLevelUpMoves(
             response.data.moves.filter(
-              (item) => item.version_group_details[0].level_learned_at !== 0
+              (item) =>
+                item.version_group_details[
+                  item.version_group_details.length - 1
+                ].level_learned_at !== 0
+            )
+          );
+          setTMmoves(
+            response.data.moves.filter(
+              (e) =>
+                e.version_group_details[e.version_group_details.length - 1]
+                  .move_learn_method.name === "machine"
             )
           );
         })
@@ -40,24 +57,47 @@ const Moves = ({ name }) => {
   return (
     <div className="moves">
       <button onClick={toggle} className="btn">
-        Show Me Your Moves
+        Toggle Moves
       </button>
       {/* {console.log(moves.sort((a, b) => a[1] - b[1]))} */}
 
       {moves && (
-        <table className={visibility}>
-          <tbody>
-            {moves
-              .sort((a, b) => a[1] - b[1])
-              .map((element, index) => (
-                <tr key={index}>
-                  <td>{element[1]}</td>
-                  <td>{element[0]}</td>
+        <div className={visibility + " grid-2"}>
+          <Table>
+            <tr>
+              <th>Level</th>
+              <th>Move</th>
+            </tr>
+            <tbody>
+              {moves
+                .sort((a, b) => a[1] - b[1])
+                .map((element, index) => (
+                  <tr key={index}>
+                    <td>{element[1]}</td>
+                    <td>{element[0]}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+
+          {TMmoves && (
+            <Table>
+              <tbody>
+                <tr>
+                  <th>HM/TM Moves</th>
                 </tr>
-              ))}
-          </tbody>
-        </table>
+                {TMmoves.map((e, i) => (
+                  <tr key={i}>
+                    <td> {e.move.name} </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
+        </div>
       )}
+
+      {TMmoves && <div></div>}
     </div>
   );
 };
