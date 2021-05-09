@@ -24,10 +24,6 @@ const StatsChart = ({ statsData }) => {
     ctx = document.getElementById("myChart").getContext("2d");
   }, []);
 
-  useEffect(() => {}, [stats]);
-
-  //   const ctx = document.querySelector("#myChart").getContext("2d");
-
   useEffect(() => {
     statsData.forEach((item, index) => {
       stats.push(item.base_stat);
@@ -39,15 +35,20 @@ const StatsChart = ({ statsData }) => {
         type: "bar",
         options: {
           indexAxis: "y",
+          legend: {
+            display: false,
+          },
           maintainAspectRatio: false,
         },
         data: {
           labels: statNames,
           datasets: [
             {
-              label: "Stats",
               data: stats,
-              backgroundColor: "lightblue",
+              label: "Stats",
+              backgroundColor: "#70B8B2",
+              borderColor: "#000000",
+              borderWidth: "1",
             },
           ],
         },
