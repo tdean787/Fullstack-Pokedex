@@ -24,7 +24,7 @@ const AllPokemon = (props) => {
                     index + 1
                   }.png`}
                 ></img>
-                {element.name}
+                <p>{element.name}</p>
 
                 {/* <ListPokemon individualPokemon={element.name} /> */}
               </div>

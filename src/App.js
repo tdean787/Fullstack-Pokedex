@@ -14,6 +14,7 @@ import SelectedPokemon from "./components/SelectedPokemon";
 import Filtered from "./components/Filtered";
 import Teams from "./components/Teams";
 import About from "./components/About";
+import Header from "./components/Header";
 
 const HomePage = () => {
   const [pokemonData, setPokemonData] = useState([]);
@@ -64,9 +65,6 @@ const HomePage = () => {
 
   return (
     <div className="App">
-      <header className="poke-font">
-        <h2>PokeDex</h2>
-      </header>
       <div>
         <form class="search-form">
           <input
@@ -75,7 +73,7 @@ const HomePage = () => {
           />
 
           <button class="btn" type="submit" onClick={callPokeAPI}>
-            search for pokemon
+            Search
           </button>
 
           <label for="types"> Filter by type </label>
@@ -91,6 +89,7 @@ const HomePage = () => {
             <option value="psychic">psychic</option>
             <option value="fairy">fairy</option>
             <option value="ghost">ghost</option>
+            <option value="dragon">dragon</option>
           </select>
         </form>
       </div>
@@ -142,6 +141,7 @@ function App() {
             </button> */}
         </ul>
       </nav>
+      <Header></Header>
       <Switch>
         <Route exact path="/teams">
           <Teams />

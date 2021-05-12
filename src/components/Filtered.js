@@ -8,7 +8,7 @@ const Filtered = ({ data }) => {
     return test.exec(element);
   };
   if (!data) {
-    return <div>no filter</div>;
+    return <div>Loading</div>;
   } else {
     return (
       <div className="grid">

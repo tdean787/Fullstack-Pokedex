@@ -1,3 +1,7 @@
+body {
+  font-family: "Raleway", sans-serif;
+}
+
 h1 {
   font-size: 45px;
 }
@@ -51,6 +55,10 @@ table {
   width: 175px;
   height: 175px;
 }
+
+.tile p {
+  margin-bottom: 0.5em;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
@@ -96,13 +104,6 @@ table {
 
 #flavor-text {
   text-transform: none;
-}
-
-.poke-font {
-  font-family: "Press Start 2P", sans-serif;
-  color: #f7c406;
-  text-shadow: 4px 4px #326bac;
-  font-size: 2em;
 }
 
 .all-pokemon-container {
@@ -225,6 +226,12 @@ header h2 {
 input,
 label {
   margin: 5px;
+}
+
+.search-form input {
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 18px;
 }
 
 #myChart {
