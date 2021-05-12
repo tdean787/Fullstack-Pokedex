@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { Chart, registerables } from "chart.js";
 import styled from "styled-components";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { render } from "@testing-library/react";
 
 const StyledChart = styled.div`
   height: 300px;
@@ -10,13 +12,14 @@ const StyledChart = styled.div`
 `;
 
 const StatsChart = ({ statsData, pokemonName }) => {
+  let testName = useParams().name;
   Chart.register(...registerables);
   let stats = [];
   let statNames = [];
   let targetStats = [];
   let targetStatNames = [];
   let targetChart;
-  let myChart;
+  let myChart = false;
   let ctx;
   let targetctx;
   let targetSearchName;
@@ -28,7 +31,8 @@ const StatsChart = ({ statsData, pokemonName }) => {
   const [comparison, setComparison] = useState(false);
   const toggle = () => {
     setVisibility(visibility === "hidden" ? "visible" : "hidden");
-    console.log(visibility);
+    console.log(visibility, pokemonName, statsData, testName);
+    renderBaseChart();
   };
 
   const toggleCompare = () => {
@@ -92,19 +96,23 @@ const StatsChart = ({ statsData, pokemonName }) => {
   };
 
   useEffect(() => {
+    if (myChart) {
+      myChart.destroy();
+    }
     ctx = document.getElementById("myChart").getContext("2d");
-  }, []);
+  }, [testName]);
 
-  useEffect(() => {
+  const renderBaseChart = () => {
+    if (myChart) {
+      myChart.destroy();
+    }
+    console.log(typeof myChart);
     statsData.forEach((item, index) => {
       stats.push(item.base_stat);
       statNames.push(item.stat.name);
     });
-    console.log(stats);
+
     if (stats.length > 0) {
-      if (myChart) {
-        myChart.destroy();
-      }
       myChart = new Chart(ctx, {
         type: "bar",
         options: {
@@ -128,7 +136,11 @@ const StatsChart = ({ statsData, pokemonName }) => {
         },
       });
     }
-  }, [statsData]);
+    console.log(typeof myChart);
+  };
+  useEffect(() => {
+    renderBaseChart();
+  }, [testName]);
 
   return (
     <div>

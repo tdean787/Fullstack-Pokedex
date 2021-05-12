@@ -141,6 +141,7 @@ th {
 
 .displayed-team {
   display: flex;
+  flex-wrap: wrap;
   text-transform: capitalize;
 }
 
@@ -214,15 +215,6 @@ nav {
 .links {
   display: inline;
   margin: 0 10px;
-}
-
-header {
-  text-align: center;
-  margin: 0.5em;
-}
-
-header h2 {
-  margin: unset;
 }
 
 .search-form {

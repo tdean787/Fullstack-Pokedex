@@ -117,8 +117,8 @@ const Teams = ({ pokeName }) => {
         <div>
           <select onChange={teamChange}>
             <option></option>
-            {uniqueTeams.map((pokemon) => (
-              <option>{pokemon}</option>
+            {uniqueTeams.map((pokemon, index) => (
+              <option key={index}>{pokemon}</option>
             ))}
           </select>
           {pokeName && (

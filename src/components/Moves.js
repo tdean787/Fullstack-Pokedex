@@ -64,10 +64,12 @@ const Moves = ({ name }) => {
       {moves && (
         <div className={visibility + " grid-2"}>
           <Table>
-            <tr>
-              <th>Level</th>
-              <th>Move</th>
-            </tr>
+            <tbody>
+              <tr>
+                <th>Level</th>
+                <th>Move</th>
+              </tr>
+            </tbody>
             <tbody>
               {moves
                 .sort((a, b) => a[1] - b[1])

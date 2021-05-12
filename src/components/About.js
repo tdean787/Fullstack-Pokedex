@@ -2,8 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="container">
-      <h2>About Page</h2>
+    <div style={{ marginTop: "1em" }} className="container">
       <p>
         A fullstack web app utilizing the MERN technology stack (MongoDB,
         Express, React, and Node)

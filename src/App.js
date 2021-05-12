@@ -66,13 +66,13 @@ const HomePage = () => {
   return (
     <div className="App">
       <div>
-        <form class="search-form">
+        <form className="search-form">
           <input
             placeholder="type the pokemon name here"
             onChange={updateSearch}
           />
 
-          <button class="btn" type="submit" onClick={callPokeAPI}>
+          <button className="btn" type="submit" onClick={callPokeAPI}>
             Search
           </button>
 
@@ -126,13 +126,13 @@ function App() {
     <HashRouter>
       <nav>
         <ul>
-          <li class="links">
+          <li className="links">
             <Link to="/">Home</Link>
           </li>
-          <li class="links">
+          <li className="links">
             <Link to="/about">About</Link>
           </li>
-          <li class="links">
+          <li className="links">
             <Link to="/teams">Teams</Link>
           </li>
           {/* <button onClick={toggleTheme}>

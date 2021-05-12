@@ -127,8 +127,8 @@ const SelectedPokemon = ({ match }) => {
           </div>
           <div>
             <p style={{ fontWeight: "bold" }}>Types</p>
-            {pokeData.types.map((item) => (
-              <p>{item.type.name}</p>
+            {pokeData.types.map((item, index) => (
+              <p key={index}>{item.type.name}</p>
             ))}
           </div>
 
