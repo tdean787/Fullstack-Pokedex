@@ -6,6 +6,11 @@ import Teams from "./Teams";
 import Comments from "./Comments";
 import Moves from "./Moves";
 import StatCharts from "./StatsChart";
+import styled from "styled-components";
+
+const StyledPokemon = styled.div`
+  font-family: Roboto, sans-serif;
+`;
 
 const SelectedPokemon = ({ match }) => {
   let { name } = useParams();
@@ -74,71 +79,73 @@ const SelectedPokemon = ({ match }) => {
   if (pokeData) {
     axios.get(`/pokemon/${name}`).then((response) => console.log(response));
     return (
-      <div className={`selected ${pokeData.types[0].type.name}`}>
-        {/* <button onClick={handleClick}>Home</button> */}
-        <h2> {pokeData.name} </h2>
-        <p id="flavor-text">{pokeFlavor}</p>
-        <div className="evoSprites">
-          {evolvesFromObj && (
-            <div>
-              {evolvesFromObj.name !== pokeData.name && (
-                <Link to={`/pokemon/${evolvesFromObj.name}`}>
-                  <div>
-                    <img
-                      alt={evolvesFromObj.name}
-                      src={`${evolvesFromObj.sprites.front_default}`}
-                    ></img>
-                    <p>{evolvesFromObj.name}</p>
-                  </div>
-                </Link>
-              )}
-            </div>
-          )}
+      <StyledPokemon>
+        <div className={`selected ${pokeData.types[0].type.name}`}>
+          {/* <button onClick={handleClick}>Home</button> */}
+          <h2> {pokeData.name} </h2>
+          <p id="flavor-text">{pokeFlavor}</p>
+          <div className="evoSprites">
+            {evolvesFromObj && (
+              <div>
+                {evolvesFromObj.name !== pokeData.name && (
+                  <Link to={`/pokemon/${evolvesFromObj.name}`}>
+                    <div>
+                      <img
+                        alt={evolvesFromObj.name}
+                        src={`${evolvesFromObj.sprites.front_default}`}
+                      ></img>
+                      <p>{evolvesFromObj.name}</p>
+                    </div>
+                  </Link>
+                )}
+              </div>
+            )}
 
+            <div>
+              <img
+                className="sprite"
+                alt={`${pokeData.name} sprite`}
+                src={pokeData.sprites.front_default}
+              ></img>
+            </div>
+
+            {evolvesToObj && (
+              <div>
+                {evolvesToObj.name !== pokeData.name && (
+                  <Link to={`/pokemon/${evolvesToObj.name}`}>
+                    <div>
+                      <img
+                        alt={evolvesToObj.name}
+                        src={`${evolvesToObj.sprites.front_default}`}
+                      ></img>
+                      <p>{evolvesToObj.name}</p>
+                    </div>
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
           <div>
-            <img
-              className="sprite"
-              alt={`${pokeData.name} sprite`}
-              src={pokeData.sprites.front_default}
-            ></img>
+            <p style={{ fontWeight: "bold" }}>Types</p>
+            {pokeData.types.map((item) => (
+              <p>{item.type.name}</p>
+            ))}
           </div>
 
-          {evolvesToObj && (
-            <div>
-              {evolvesToObj.name !== pokeData.name && (
-                <Link to={`/pokemon/${evolvesToObj.name}`}>
-                  <div>
-                    <img
-                      alt={evolvesToObj.name}
-                      src={`${evolvesToObj.sprites.front_default}`}
-                    ></img>
-                    <p>{evolvesToObj.name}</p>
-                  </div>
-                </Link>
-              )}
-            </div>
-          )}
-        </div>
-        <div>
-          <p>Pokemon Types</p>
-          {pokeData.types.map((item) => (
-            <li>{item.type.name}</li>
-          ))}
-        </div>
-
-        {/* moves */}
-        <div>
-          {/* {console.log(
+          {/* moves */}
+          <div>
+            {/* {console.log(
             pokeData.moves.filter(
               (item) => item.version_group_details.level_learned_at !== 0
             )
           )} */}
-          <Moves name={name} />
+            <Moves name={name} />
+          </div>
+          <StatCharts pokemonName={name} statsData={pokeData.stats} />
+          <Comments pokemonName={name} />
+          <Teams pokeName={name} />
         </div>
-        <StatCharts statsData={pokeData.stats} />
-        <Comments pokemonName={name} />
-        <Teams pokeName={name} />
-      </div>
+      </StyledPokemon>
     );
   } else {
     axios.get(`/pokemon/${name}`).then((response) => {
