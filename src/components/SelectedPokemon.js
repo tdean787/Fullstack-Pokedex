@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Teams from "./Teams";
 import Comments from "./Comments";
 import Moves from "./Moves";
-import StatCharts from "./StatsChart";
+import StatsChart from "./StatsChart";
 import styled from "styled-components";
 
 const StyledPokemon = styled.div`
@@ -132,16 +132,10 @@ const SelectedPokemon = ({ match }) => {
             ))}
           </div>
 
-          {/* moves */}
           <div>
-            {/* {console.log(
-            pokeData.moves.filter(
-              (item) => item.version_group_details.level_learned_at !== 0
-            )
-          )} */}
             <Moves name={name} />
           </div>
-          <StatCharts pokemonName={name} statsData={pokeData.stats} />
+          <StatsChart pokemonName={name} statsData={pokeData.stats} />
           <Comments pokemonName={name} />
           <Teams pokeName={name} />
         </div>

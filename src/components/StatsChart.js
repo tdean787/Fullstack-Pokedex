@@ -6,9 +6,9 @@ import { useParams } from "react-router-dom";
 import { render } from "@testing-library/react";
 
 const StyledChart = styled.div`
-  height: 300px;
-  width: 300px;
   background-color: #f1f1f1;
+  height: 350px;
+  width: 300px;
 `;
 
 const StatsChart = ({ statsData, pokemonName }) => {
@@ -19,21 +19,23 @@ const StatsChart = ({ statsData, pokemonName }) => {
   let targetStats = [];
   let targetStatNames = [];
   let targetChart;
-  let myChart = false;
+  let myChart;
   let ctx;
   let targetctx;
   let targetSearchName;
   const chartRef = useRef();
   const targetChartRef = useRef();
 
+  const [stateChart, setStateChart] = useState();
+
   const [chartGridStyle, setChartGridStyle] = useState("grid-1");
   const [visibility, setVisibility] = useState("hidden");
   const [comparison, setComparison] = useState(false);
-  const toggle = () => {
-    setVisibility(visibility === "hidden" ? "visible" : "hidden");
-    console.log(visibility, pokemonName, statsData, testName);
-    renderBaseChart();
-  };
+  // const toggle = () => {
+  //   setVisibility(visibility === "hidden" ? "visible" : "hidden");
+  //   console.log(visibility, pokemonName, statsData, testName);
+  //   renderBaseChart();
+  // };
 
   const toggleCompare = () => {
     setComparison(!comparison);
@@ -62,9 +64,6 @@ const StatsChart = ({ statsData, pokemonName }) => {
         targetctx = document.querySelector("#targetChart").getContext("2d");
       })
       .then(() => {
-        if (targetChart) {
-          targetChart.destroy();
-        }
         targetChart = new Chart(targetctx, {
           type: "bar",
           options: {
@@ -95,61 +94,65 @@ const StatsChart = ({ statsData, pokemonName }) => {
       });
   };
 
-  useEffect(() => {
-    if (myChart) {
-      myChart.destroy();
-    }
-    ctx = document.getElementById("myChart").getContext("2d");
-  }, [testName]);
-
   const renderBaseChart = () => {
-    if (myChart) {
-      myChart.destroy();
-    }
-    console.log(typeof myChart);
     statsData.forEach((item, index) => {
       stats.push(item.base_stat);
       statNames.push(item.stat.name);
     });
 
     if (stats.length > 0) {
-      myChart = new Chart(ctx, {
-        type: "bar",
-        options: {
-          indexAxis: "y",
-          legend: {
-            display: false,
-          },
-          maintainAspectRatio: false,
-        },
-        data: {
-          labels: statNames,
-          datasets: [
-            {
-              data: stats,
-              label: pokemonName,
-              backgroundColor: "#70B8B2",
-              borderColor: "#000000",
-              borderWidth: "1",
+      setStateChart(
+        new Chart(ctx, {
+          type: "bar",
+          options: {
+            indexAxis: "y",
+            responsive: true,
+            legend: {
+              display: false,
             },
-          ],
-        },
-      });
+            maintainAspectRatio: false,
+          },
+          data: {
+            labels: statNames,
+            datasets: [
+              {
+                data: stats,
+                label: pokemonName,
+                backgroundColor: "#70B8B2",
+                borderColor: "#000000",
+                borderWidth: "1",
+              },
+            ],
+          },
+        })
+      );
     }
-    console.log(typeof myChart);
   };
+
+  //the below is necessary to re-render the chart when user clicks to another pokemon page
+  //it will automatically delete and replace the chart with the newly selected stats and redraw
+  //workaround to chart.destroy() due to various limitations
+  //testName is the params dependency to cause update when route changes
   useEffect(() => {
+    document.querySelector("#myChart").remove();
+
+    const chartCanvas = document.createElement("canvas");
+    chartCanvas.setAttribute("id", "myChart");
+
+    document.querySelector("#baseChart").appendChild(chartCanvas);
+    ctx = document.getElementById("myChart").getContext("2d");
+    ctx.height = 500;
     renderBaseChart();
   }, [testName]);
 
   return (
     <div>
-      <button class="btn" onClick={toggle}>
+      {/* <button class="btn" onClick={toggle}>
         Toggle Stats
-      </button>
-      <button onClick={toggleCompare} class="btn">
+      </button> */}
+      {/* <button onClick={toggleCompare} class="btn">
         Compare Base Stats
-      </button>
+      </button> */}
       {comparison && (
         <div>
           <form onSubmit={renderComparison}>
@@ -164,7 +167,7 @@ const StatsChart = ({ statsData, pokemonName }) => {
         </div>
       )}
       <div className={chartGridStyle}>
-        <StyledChart className={visibility}>
+        <StyledChart id="baseChart">
           <canvas ref={chartRef} id="myChart"></canvas>
         </StyledChart>
 
