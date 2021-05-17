@@ -7,10 +7,10 @@ const Comments = ({ pokemonName }) => {
 
   useEffect(() => {
     axios.get(`/api/pokemon/comments/${pokemonName}`).then((response) => {
+      console.log(response.data);
       if (response.data.length === 0) {
         return;
       } else {
-        console.log(response.data);
         setComments(response.data);
       }
     });
@@ -20,6 +20,7 @@ const Comments = ({ pokemonName }) => {
 
   const callComments = () => {
     axios.get(`/api/pokemon/comments/${pokemonName}`).then((response) => {
+      console.log(response.data);
       if (response.data.length === 0) {
         return;
       } else {
