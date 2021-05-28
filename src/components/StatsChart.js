@@ -46,6 +46,9 @@ const StatsChart = ({ statsData, pokemonName }) => {
   };
 
   const renderComparison = (e) => {
+    if (targetChart) {
+      targetChart.destroy();
+    }
     e.preventDefault();
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${targetSearchName}/`)
