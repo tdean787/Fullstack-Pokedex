@@ -29,8 +29,6 @@ const Teams = ({ pokeName }) => {
   };
 
   const addFromTeamOption = () => {
-    console.log(selectedTeamOption);
-    console.log(typeof selectedTeamOption);
     let pokemonObj = {
       pokemonName: pokeName,
       pokemonTeamName: selectedTeamOption,
@@ -86,16 +84,40 @@ const Teams = ({ pokeName }) => {
     }
   };
 
-  useEffect(() => {
+  //the two functions below handle checking length of team before adding a new one
+  const teamDropdownHandler = (teamNameParam) => {
+    let arr;
     axios
-      .get("/api/pokemon-teams")
+      .get(`/api/pokemon-teams/${teamNameParam}`)
       .then((response) => {
-        let mappedTeams = response.data.map(
-          (element) => element.pokemonTeamName
-        );
-        setUniqueTeams([...new Set(mappedTeams)]);
+        arr = response.data.map((element) => element);
       })
-      .then((res) => console.log(uniqueTeams));
+      .then(() => {
+        arr.length >= 6
+          ? alert("There are too many pokemon on that team")
+          : addFromTeamOption();
+      });
+  };
+
+  const teamInputHandler = (teamNameParam) => {
+    let arr;
+    axios
+      .get(`/api/pokemon-teams/${teamNameParam}`)
+      .then((response) => {
+        arr = response.data.map((element) => element);
+      })
+      .then(() => {
+        arr.length >= 6
+          ? alert("There are too many pokemon on that team")
+          : addPokemon();
+      });
+  };
+
+  useEffect(() => {
+    axios.get("/api/pokemon-teams").then((response) => {
+      let mappedTeams = response.data.map((element) => element.pokemonTeamName);
+      setUniqueTeams([...new Set(mappedTeams)]);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayedTeam]);
   return (
@@ -107,7 +129,10 @@ const Teams = ({ pokeName }) => {
             onChange={setTeamName}
             placeholder="write team name"
           />
-          <button onClick={addPokemon}> add to team </button>
+          <button onClick={() => teamInputHandler(teamName)}>
+            {" "}
+            add to team{" "}
+          </button>
         </div>
       )}
 
@@ -122,7 +147,7 @@ const Teams = ({ pokeName }) => {
             ))}
           </select>
           {pokeName && (
-            <button onClick={addFromTeamOption}>
+            <button onClick={() => teamDropdownHandler(selectedTeamOption)}>
               Add to team from dropdown
             </button>
           )}
