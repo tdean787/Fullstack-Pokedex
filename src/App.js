@@ -8,40 +8,18 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import "./animista.css";
-import Pokemon from "./components/Pokemon";
 import AllPokemon from "./components/AllPokemon";
 import SelectedPokemon from "./components/SelectedPokemon";
 import Filtered from "./components/Filtered";
 import Teams from "./components/Teams";
 import About from "./components/About";
 import Header from "./components/Header";
+import Search from "./components/Search";
 
 const HomePage = () => {
-  const [pokemonData, setPokemonData] = useState([]);
-  const [searchText, setSearch] = useState("");
   const [allPokemon, setAllPokemon] = useState();
-  const [apiError, setError] = useState("");
   const [selectedType, setSelectedType] = useState("all");
   const [typeFilteredPokemon, setTypeFilteredPokemon] = useState("");
-
-  const callPokeAPI = (event) => {
-    event.preventDefault();
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${searchText}/`)
-      .then((response) => {
-        setPokemonData(response.data);
-        setError(undefined);
-      })
-      .then(console.log(pokemonData))
-      .catch((error) => {
-        setError(error);
-        console.log(apiError);
-      });
-  };
-
-  const updateSearch = (event) => {
-    setSearch(event.target.value);
-  };
 
   useEffect(() => {
     axios
@@ -66,40 +44,24 @@ const HomePage = () => {
   return (
     <div className="App">
       <div>
-        <form className="search-form">
-          <input
-            placeholder="type the pokemon name here"
-            onChange={updateSearch}
-          />
-
-          <button className="btn" type="submit" onClick={callPokeAPI}>
-            Search
-          </button>
-
-          <label for="types"> Filter by type </label>
-          <select onChange={typeChange} name="types">
-            <option value="all">All</option>
-            <option value="fire">Fire</option>
-            <option value="grass">grass</option>
-            <option value="water">water</option>
-            <option value="rock">rock</option>
-            <option value="dark">dark</option>
-            <option value="fighting">fighting</option>
-            <option value="ice">ice</option>
-            <option value="psychic">psychic</option>
-            <option value="fairy">fairy</option>
-            <option value="ghost">ghost</option>
-            <option value="dragon">dragon</option>
-          </select>
-        </form>
+        <Search />
+        <label for="types"> Filter by type </label>
+        <select onChange={typeChange} name="types">
+          <option value="all">All</option>
+          <option value="fire">Fire</option>
+          <option value="grass">grass</option>
+          <option value="water">water</option>
+          <option value="rock">rock</option>
+          <option value="dark">dark</option>
+          <option value="fighting">fighting</option>
+          <option value="ice">ice</option>
+          <option value="psychic">psychic</option>
+          <option value="fairy">fairy</option>
+          <option value="ghost">ghost</option>
+          <option value="dragon">dragon</option>
+        </select>
       </div>
-      <div>
-        <Link to={pokemonData.name}>
-          <div>
-            <Pokemon apiError={apiError} pokemonData={pokemonData} />
-          </div>
-        </Link>
-      </div>
+      <div></div>
       <div className="all-pokemon-container">
         {selectedType !== "all" && (
           <Filtered selectedType={selectedType} data={typeFilteredPokemon} />
@@ -124,24 +86,26 @@ function App() {
 
   return (
     <HashRouter>
-      <nav>
-        <ul>
-          <li className="links">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="links">
-            <Link to="/about">About</Link>
-          </li>
-          <li className="links">
-            <Link to="/teams">Teams</Link>
-          </li>
-          {/* <button onClick={toggleTheme}>
+      <div>
+        <nav>
+          <ul>
+            <li className="links">
+              <Link to="/">Home</Link>
+            </li>
+            <li className="links">
+              <Link to="/about">About</Link>
+            </li>
+            <li className="links">
+              <Link to="/teams">Teams</Link>
+            </li>
+            {/* <button onClick={toggleTheme}>
               {" "}
               Toggle {themeState === "light" ? "dark" : "light"}{" "}
             </button> */}
-        </ul>
-      </nav>
-      <Header></Header>
+          </ul>
+        </nav>
+        <Header></Header>
+      </div>
       <Switch>
         <Route exact path="/teams">
           <Teams />

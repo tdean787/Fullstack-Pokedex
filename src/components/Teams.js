@@ -113,6 +113,29 @@ const Teams = ({ pokeName }) => {
       });
   };
 
+  const deleteTeam = () => {
+    console.log(selectedTeamOption);
+    if (selectedTeamOption) {
+      if (window.confirm("Do you really want to delete the entire team?")) {
+        axios
+          .delete(`/api/pokemon-teams/${selectedTeamOption}`)
+          .then(() => console.log(`${selectedTeamOption} was deleted`))
+          .then(() => {
+            axios.get("/api/pokemon-teams").then((response) => {
+              let mappedTeams = response.data.map(
+                (element) => element.pokemonTeamName
+              );
+              //these are necessary for now to reset the display after a successful deletion
+              setUniqueTeams([...new Set(mappedTeams)]);
+              setDisplayedTeam(undefined);
+            });
+          });
+      } else {
+        alert("Team was not deleted");
+      }
+    }
+  };
+
   useEffect(() => {
     axios.get("/api/pokemon-teams").then((response) => {
       let mappedTeams = response.data.map((element) => element.pokemonTeamName);
@@ -153,7 +176,7 @@ const Teams = ({ pokeName }) => {
           )}
         </div>
       )}
-
+      <button onClick={deleteTeam}>Delete Entire Team</button>
       {/* rendered display of pokemon matching the selected team name */}
       {displayedTeam && (
         <div>

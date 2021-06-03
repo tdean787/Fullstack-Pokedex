@@ -37,12 +37,12 @@ const TeamMember = ({
         <div className={pokeData.types[0].type.name + " team-member"}>
           <h3>{pokeData.name}</h3>
           {/* {id} */}
-          <Link to={`/pokemon/${pokeData.name}`}>
-            <img
-              alt={`${pokeData.name} sprite`}
-              src={pokeData.sprites.front_default}
-            ></img>
-          </Link>
+          {/* <Link to={`/pokemon/${pokeData.name}`}> */}
+          <img
+            alt={`${pokeData.name} sprite`}
+            src={pokeData.sprites.front_default}
+          ></img>
+          {/* </Link> */}
           <button onClick={deletePokemon}>Delete Pokemon</button>
         </div>
       )}

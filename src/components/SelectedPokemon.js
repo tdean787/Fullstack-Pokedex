@@ -6,6 +6,7 @@ import Teams from "./Teams";
 import Comments from "./Comments";
 import Moves from "./Moves";
 import StatsChart from "./StatsChart";
+import Search from "./Search";
 import styled from "styled-components";
 
 const StyledPokemon = styled.div`
@@ -14,9 +15,9 @@ const StyledPokemon = styled.div`
 
 const SelectedPokemon = ({ match }) => {
   let { name } = useParams();
+  let testName = useParams().name;
   const [pokeData, setPokeData] = useState();
   const [pokeFlavor, setPokeFlavor] = useState();
-  const [showStats, toggleStats] = useState(false);
   const [evolvesFromObj, setEvolvesFrom] = useState();
   const [evolvesToObj, setEvolvesToObj] = useState();
 
@@ -74,10 +75,9 @@ const SelectedPokemon = ({ match }) => {
           }
         });
       });
-  }, [name]);
+  }, [testName]);
 
   if (pokeData) {
-    axios.get(`/pokemon/${name}`).then((response) => console.log(response));
     return (
       <StyledPokemon>
         <div className={`selected ${pokeData.types[0].type.name}`}>
@@ -142,12 +142,6 @@ const SelectedPokemon = ({ match }) => {
       </StyledPokemon>
     );
   } else {
-    axios.get(`/pokemon/${name}`).then((response) => {
-      console.log(response.data);
-      console.log(response);
-      console.log(name);
-    });
-
     //waiting for pokeData to load
     return <p> loading </p>;
   }
