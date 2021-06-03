@@ -10,7 +10,6 @@ const Comments = ({ pokemonName }) => {
       if (response.data.length === 0) {
         return;
       } else {
-        console.log(response.data);
         setComments(response.data);
       }
     });
@@ -42,6 +41,12 @@ const Comments = ({ pokemonName }) => {
       .then(() => callComments());
   };
 
+  const deleteTesting = () => {
+    axios
+      .get(`/api/comments/delete/${pokemonName}`)
+      .then((response) => console.log(response.data));
+  };
+
   return (
     <div>
       {comments && (
@@ -51,8 +56,11 @@ const Comments = ({ pokemonName }) => {
               <h3>Comments about {pokemonName}</h3>
 
               <ul>
-                {comments[0].comments.map((element) => (
-                  <li>{element.comments}</li>
+                {comments[0].comments.map((element, index) => (
+                  <li>
+                    {element.comments} {index}{" "}
+                    <button onClick={deleteTesting}> Delete? </button>
+                  </li>
                 ))}
               </ul>
             </div>
